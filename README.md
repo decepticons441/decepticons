@@ -12,11 +12,10 @@
 
 ## Technical Description
 1. Include an architectural diagram mapping 1) all server and database components, 2) flow of data, and its communication type (message? REST API?).
-![](image.png)
 
 2. A summary table of user stories in the following format (P0 P1 means priority. These classifications do not factor into grading. They are more for your own benefit to think about what would be top priorities if you happened to run out of time)
-| Use Cases | Priority | User           | Description    | Technology                        |
-|-----------|----------|----------------|--------------------------------------------------------------------------------------------------|-----------------------------------|
+| Use Cases | Priority | User           | Description                                                                                      | Technology                        |
+|-----------|:----------:|:----------------|--------------------------------------------------------------------------------------------------:|-----------------------------------:|
 | 1         | P0       | As a User      | I want to create a Video Conference between 4 people where I can listen and speak to other users | RedisStore, MySQL                 |
 | 2         | P0       | As a User      | I want to send messages to other people within the conference call                               | RabbitMQ, RedisStore, HTML/CSS/JS |
 | 3         | P1       | As a User      | I want to add more people to a UW Hangout                                                        | MySQL                             |
