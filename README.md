@@ -14,22 +14,13 @@
 1. Include an architectural diagram mapping 1) all server and database components, 2) flow of data, and its communication type (message? REST API?).
 
 2. A summary table of user stories in the following format (P0 P1 means priority. These classifications do not factor into grading. They are more for your own benefit to think about what would be top priorities if you happened to run out of time)
-| Use Cases | Priority | User           | Description                                                                                      | Technology                        |
-|-----------|:----------:|:----------------|--------------------------------------------------------------------------------------------------:|-----------------------------------:|
-| 1         | P0       | As a User      | I want to create a Video Conference between 4 people where I can listen and speak to other users | RedisStore, MySQL                 |
-| 2         | P0       | As a User      | I want to send messages to other people within the conference call                               | RabbitMQ, RedisStore, HTML/CSS/JS |
-| 3         | P1       | As a User      | I want to add more people to a UW Hangout                                                        | MySQL                             |
-| 4         | P0       | As a User      | I want to be authenticated to use this product as a UW member                                    | RedisStore, MySQL                 |
-| 5         | P2       | As a User      | I want to know who joined the conference call                                                    | RabbitMQ                          |
-| 6         | P3       | As a User      | I want to retain HD video during the hangout                                                     | WebRTC                            |
-| 7         | P3       | As a Developer | I want to maintain fast messaging updates across different users based on message timestamps     | RabbitMQ, MySQL                   |
 
 | Use Case | Priority     | User          | Description   | Technology |
 | :------- | :----------: | :-----------: | :-----------: | ---------: |
 |   1      | P0           | As a User     | I want to create a Video Conference between 4 people where I can listen and speak to other users | RedisStore, MySQL |
 |   2      | P1           | As a User     | I want to send messages to other people within the conference call   | RabbitMQ, RedisStore, HTML/CSS/JS
-|   3      | P1           | As a User     | I want to add more people to a UW Hangout | MySQL |
-|   4
-|   5
+|   3      | P0           | As a User     | I want to be authenticated to use this product as a UW member | RedisStore, MySQL |
+|   4      | P1           | As User       | I want to add more people to a UW Hangout | MySQL |
+|   5      | 
 |   6
 |   7
