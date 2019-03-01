@@ -12,6 +12,7 @@ As developers we have never tackled creating a video conference so we believe th
 
 ## Technical Description
 1. Include an architectural diagram mapping 1) all server and database components, 2) flow of data, and its communication type (message? REST API?).
+![Flow Diagram](Screen Shot 2019-02-28 at 10.21.38 PM.png)
 
 2. A summary table of user stories in the following format (P0 P1 means priority. These classifications do not factor into grading. They are more for your own benefit to think about what would be top priorities if you happened to run out of time)
 
