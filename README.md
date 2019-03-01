@@ -1,10 +1,10 @@
 # Deceptions - Project Proposal
 
 ## Project Description
-1. Who is your target audience?  Who do you envision using your application? Depending on the domain of your application, there may be a variety of audiences interested in using your application.  You should hone in on one of these audiences.
+1. Who is your target audience?  Who do you envision using your application? Depending on the domain of your application, there may be a variety of audiences interested in using your application.  You should hone in on one of these audiences.<br>
 We have chosen to create the recommended UW Hangouts Live Video Chat App for our final project in order to target anyone that is a student or faculty member at the University of Washington. We were even thinking of possibly adding an additional link to canvas so students could automatically see/share their course content instead of having to pull up another window on their browser if feasible. If we went with this scenario, then our audience base would be specified to the students/teachers/TAs within a certain class. But overall we want to provide this video conferencing product within the UW academic community. We understand that our audience base is very broad, but as we pursue this idea in the future we can narrow our stakeholders/user base.
 	
-2. Why does your audience want to use your application? Please provide some sort of reasoning. 
+2. Why does your audience want to use your application? Please provide some sort of reasoning. <br>
 Our audience would like to use this application because our project creates a tight knit community within our chat session where only UW students have access to certain resources. Not to mention it would help with working remote If integrated with canvas, we could certainly provide a unique experience where users don’t need to access multiple sites to share one file.
 
 3. Why do you as developers want to build this application? <br>
