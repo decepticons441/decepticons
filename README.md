@@ -24,3 +24,15 @@
 |   5      | P2           | As a User     | I want to know who joined the conference call | RabbitMQ |
 |   6      | P3           | As a Developer | I want to retain HD video during the hangout | WebRTC |
 |   7      | P3           | As a Developer | I want to maintain fast messaging updates across different users based on message timestamps | RabbitMQ, MySQL |
+
+2. For each of your user story, describe in 2-3 sentences what your technical implementation strategy is. Explicitly note in **bold** which technology you are using (if applicable):
+
+| Number | Strategy |
+| :----- | :------- |
+| 1      | We will be using **Redis** to store current and previous sessions of conferences. **MySQL** will store our user information to call. |
+| 2      | **MySQL** will store the user messages for each session to provide context of the previous chat. We will use **HTML/CSS/JS** to provide client feedback and to parse the message data pulled from **MySQL**. |
+| 3      | **MySQL** will be used to support multiple users in each UW Hangout. This is through updating a **MySQL** column that contains a list of users in the call. |
+| 4      | **MySQL** will authenticate a valid UW Husky ID and check **Redis** for all  the  multiple user sessions and to populate the user interface with all these sessions. |
+| 5      | **RabbitMQ** is used to notify all the users that are in the same conference call. The information will be displayed as a popup saying “_user_ has joined this call”. |
+| 6      | WebRTC offers HD video configurations by consuming their API and prompting users to give access to their webcam for the conference. Video display size can be customized. |
+| 7      | **MySQL** will be used to store message timestamps along with the message through a “createdAt” value. **RabbitMQ** will be used to notify users of a new message created. |
