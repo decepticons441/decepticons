@@ -23,3 +23,8 @@
 | 5         | P2       | As a User      | I want to know who joined the conference call                                                    | RabbitMQ                          |
 | 6         | P3       | As a User      | I want to retain HD video during the hangout                                                     | WebRTC                            |
 | 7         | P3       | As a Developer | I want to maintain fast messaging updates across different users based on message timestamps     | RabbitMQ, MySQL                   |
+
+| Column 1       | Column 2     | Column 3     |
+| :------------- | :----------: | -----------: |
+|  Cell Contents | More Stuff   | And Again    |
+| You Can Also   | Put Pipes In | Like this \| |
