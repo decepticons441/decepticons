@@ -45,6 +45,11 @@ As developers we have never tackled creating a video conference so we believe th
 **ALL OF THESE CALLS REQUIRE A USER IN THE X-USER HEADER**
 
 ## GET /v1/chatroom
+* Will respond with all of the chatrooms that the user has stored
+Content-Type header should all be set to application/json
+	* 200: Successfully retrieved the chatrooms
+	* 401: No valid user in the X-User header
+	* 500: Internal Server Error
 
 ## POST /v1/chatroom
 
