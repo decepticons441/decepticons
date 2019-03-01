@@ -24,7 +24,12 @@
 | 6         | P3       | As a User      | I want to retain HD video during the hangout                                                     | WebRTC                            |
 | 7         | P3       | As a Developer | I want to maintain fast messaging updates across different users based on message timestamps     | RabbitMQ, MySQL                   |
 
-| Use Case | Priority     | User          |
-| :------- | :----------: | :-----------: |
-|   1      | More Stuff   | And Again     |
+| Use Case | Priority     | User          | Description   | Technology |
+| :------- | :----------: | :-----------: | :-----------: | ---------: |
+|   1      | P0           | As a User     | I want to create a Video Conference between 4 people where I can listen and speak to other users | RedisStore, MySQL |
 |   2      | Put Pipes In | Like this     |
+|   3      | 
+|   4
+|   5
+|   6
+|   7
