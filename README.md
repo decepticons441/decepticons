@@ -27,7 +27,7 @@
 | Use Case | Priority     | User          | Description   | Technology |
 | :------- | :----------: | :-----------: | :-----------: | ---------: |
 |   1      | P0           | As a User     | I want to create a Video Conference between 4 people where I can listen and speak to other users | RedisStore, MySQL |
-|   2      | Put Pipes In | Like this     |
+|   2      | P1           | As a User     | I want to send messages to other people within the conference call   | RabbitMQ, RedisStore, HTML/CSS/JS
 |   3      | 
 |   4
 |   5
