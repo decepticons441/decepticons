@@ -46,35 +46,183 @@ As developers we have never tackled creating a video conference so we believe th
 
 ## GET /v1/chatroom
 * Will respond with all of the chatrooms that the user has stored
-Content-Type header should all be set to application/json
+* Content-Type header should all be set to application/json
 	* 200: Successfully retrieved the chatrooms
 	* 401: No valid user in the X-User header
 	* 500: Internal Server Error
 
 ## POST /v1/chatroom
+* Creates a new chatroom
+* Content-Type header should all be set to application/json
+	* 201: Successfully created the chatroom
+	* 403: Unauthorized to Make Channel
+	* 500: Internal Server Error
 
 ## GET /v1/chatroom/:id
+* Will respond by grabbing a specific chat room 
+* Content-Type header should all be set to application/json
+	* 200: Successfully retrieved the chatrooms
+	* 404: Chatroom with specific ID does not exist
+	* 500: Internal Server Error
 
 ## POST /v1/chatroom/:id
+* Response included message recently added in body
+* Content-Type header should all be set to application/json
+	* 201: Successfully retrieved the chatrooms
+	* 403: User forbidden
+	* 404: Chatroom with specific ID does not exist
+	* 500: Internal Server Error
 
 ## PATCH /v1/chatroom/:id
+* Updates the specific channel’s name and description
+* Content-Type header should all be set to application/json
+	* 200: Successfully changed
+	* 403: User forbidden
+	* 404: Chatroom with specific ID does not exist
+	* 500: Internal Server Error
 
 ## DELETE /v1/chatroom/:id
+* Deletes a specific channel
+	* 200: Successfully deleted
+	* 403: User forbidden
+	* 404: Chatroom with specific ID does not exist
+	* 500: Internal Server Error
 
 ## PATCH /v1/messages/:id
+* Updates the body of a specific message
+* Content-Type header should all be set to application/json
+	* 200: Successfully changed
+	* 403: User forbidden
+	* 404: Message with specific ID does not exist
+	* 500: Internal Server Error
 
 ## DELETE /v1/messages/:id
+* Will delete a specific message
+	* 200: Successfully deleted a message
+	* 403: User forbidden
+	* 404: Message with specific ID does not exist
+	* 500: Internal Server Error
 
 ## POST /v1/chatroom/:id/members
+* Updates the specific chat room’s member list
+* Content-Type header should all be set to application/json
+	* 200: Successfully changed
+	* 401: No valid user in the X-User header
+	* 403: User forbidden/Not an Actual User
+	* 404: Chatroom with specific ID does not exist
+	* 500: Internal Server Error
 
 ## DELETE /v1/chatroom/:id/members
+* Deletes a user from the list of members in the chatroom
+	* 200: Successfully changed
+	* 401: No valid user in the X-User header
+	* 403: User forbidden/Not an Actual User
+	* 404: Chatroom with specific ID does not exist
+	* 500: Internal Server Error
 
 ## POST /v1/users
+* Creates a new user account
+* Content-Type header should all be set to application/json
+	* 201: Successfully created user
+	* 400: Request body is not a valid user
+	* 415: Content-Type not application/json
+	* 500: Internal Server Error
 
 ## GET /v1/users/:id
+* Gets specific user
+* Content-Type header should all be set to application/json
+	* 201: Successfully created user
+	* 400: User id is not valid
+	* 401: User is not logged in
+	* 500: Internal Server Error
 
 ## PATCH /v1/users/:id
+* Updates user information
+* Content-Type header should all be set to application/json
+	* 200: Successfully edited a user
+	* 400: Updates were invalid
+	* 401: User is not logged in or edited a user that is not authorized
+	* 415: Content-Type not application/json
+	* 500: Internal Server Error
 
 ## POST /v1/sessions
+* Creates a new session for the user
+* Content-Type header should all be set to application/json
+	* 201: Successfully created a session
+	* 400: Request body is not a valid
+	* 401: Email/Password incorrect
+	* 415: Content-Type is not application/json
+	* 500: Internal Server Error
 
 ## DELETE /v1/sessions/:id
+* Ends a user session
+	* 200: Successfully ended session
+	* 403: User is attempting to end another user’s session
+	* 500: Internal Server Error
+
+## DELETE /v1/sessions/mine
+* Ends a user session
+* SessionID is mine
+	* 200: Successfully ended session
+	* 403: User is attempting to end another user’s session
+	* 500: Internal Server Error
+	
+5. Include any database schemas as appendix
+### Sessions
+This will contain a redis key-value store that contains sessionIDs, session startTime, and the users information
+
+### Users
+```
+create table if not exists users (
+   id int not null auto_increment primary key,
+   email varchar(128) not null UNIQUE,
+   passHash binary(60) not null,
+   userName varchar(255) not null UNIQUE,
+   firstName varchar(64) not null,
+   lastName varchar(128) not null,
+   photoURL varchar(2083) not null
+);
+```
+
+### Messages
+```
+create table if not exists messages (
+   id int not null auto_increment UNIQUE primary key,
+   channelID int not null,
+   body varchar(128) not null,
+   createdAt datetime not null,
+   creatorID int not null,
+   editedAt datetime
+);
+```
+
+### Users Sign In
+```
+create table if not exists signin (
+   pKey int not null auto_increment primary key,
+   id int not null,
+   signingTimeDate datetime not null,
+   ipAddress varchar(128) not null UNIQUE
+);
+```
+
+### Chatroom
+```
+create table if not exists chatroom (
+   id int not null auto_increment primary key,
+   chatroomID int not null,
+   createdAt datetime not null,
+   creatorID int not null
+);
+```
+
+### Chatroom Members
+```
+create table if not exists chatroom_members (
+   id int not null auto_increment primary key,
+   chatroomID int not null,
+   userID int not null
+);
+```
+
+
