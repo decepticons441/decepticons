@@ -20,7 +20,7 @@
 |   1      | P0           | As a User     | I want to create a Video Conference between 4 people where I can listen and speak to other users | RedisStore, MySQL |
 |   2      | P1           | As a User     | I want to send messages to other people within the conference call   | RabbitMQ, RedisStore, HTML/CSS/JS
 |   3      | P0           | As a User     | I want to be authenticated to use this product as a UW member | RedisStore, MySQL |
-|   4      | P1           | As User       | I want to add more people to a UW Hangout | MySQL |
-|   5      | 
-|   6
-|   7
+|   4      | P1           | As a User     | I want to add more people to a UW Hangout | MySQL |
+|   5      | P2           | As a User     | I want to know who joined the conference call | RabbitMQ |
+|   6      | P3           | As a Developer | I want to retain HD video during the hangout | WebRTC |
+|   7      | P3           | I want to maintain fast messaging updates across different users based on message timestamps | RabbitMQ, MySQL |
