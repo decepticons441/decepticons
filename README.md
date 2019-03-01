@@ -28,7 +28,7 @@
 | :------- | :----------: | :-----------: | :-----------: | ---------: |
 |   1      | P0           | As a User     | I want to create a Video Conference between 4 people where I can listen and speak to other users | RedisStore, MySQL |
 |   2      | P1           | As a User     | I want to send messages to other people within the conference call   | RabbitMQ, RedisStore, HTML/CSS/JS
-|   3      | 
+|   3      | P1           | As a User     | I want to add more people to a UW Hangout | MySQL |
 |   4
 |   5
 |   6
