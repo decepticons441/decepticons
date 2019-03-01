@@ -11,8 +11,9 @@ Our audience would like to use this application because our project creates a ti
 As developers we have never tackled creating a video conference so we believe this project would give us the opportunity to learn something new. Also with the inclusion of a messaging service within the Hangouts session, we can utilize most of the content taught in this course in a different environment. Moreover, we wanted to choose an application that could be completed in the time frame allotted to us.
 
 ## Technical Description
-1. Include an architectural diagram mapping 1) all server and database components, 2) flow of data, and its communication type (message? REST API?).
-![Flow Diagram](Screen Shot 2019-02-28 at 10.21.38 PM.png)
+1. Include an architectural diagram mapping 1) all server and database components, 2) flow of data, and its communication type (message? REST API?).<br>
+<img src="Screen Shot 2019-02-28 at 10.21.38 PM.png" alt="Flow Diagram"
+	title="Architectural Diagram"  />
 
 2. A summary table of user stories in the following format (P0 P1 means priority. These classifications do not factor into grading. They are more for your own benefit to think about what would be top priorities if you happened to run out of time)
 
