@@ -12,7 +12,7 @@ As developers we have never tackled creating a video conference so we believe th
 
 ## Technical Description
 1. Include an architectural diagram mapping 1) all server and database components, 2) flow of data, and its communication type (message? REST API?).<br>
-<img src="Screen Shot 2019-02-28 at 10.21.38 PM.png" alt="Flow Diagram"
+<img src="Decepticons - Flow Diagram.png" alt="Flow Diagram"
 	title="Architectural Diagram"  />
 
 2. A summary table of user stories in the following format (P0 P1 means priority. These classifications do not factor into grading. They are more for your own benefit to think about what would be top priorities if you happened to run out of time)
@@ -34,11 +34,11 @@ As developers we have never tackled creating a video conference so we believe th
 | :----- | :------- |
 | 1      | We will be using **Redis** to store current and previous sessions of conferences. **MySQL** will store our user information to call. |
 | 2      | **MySQL** will store the user messages for each session to provide context of the previous chat. We will use **HTML/CSS/JS** to provide client feedback and to parse the message data pulled from **MySQL**. |
-| 3      | **MySQL** will be used to support multiple users in each UW Hangout. This is through updating a **MySQL** column that contains a list of users in the call. |
+| 3      | **MySQL** will be used to support multiple users in each UW Hangout. This is through updating a **MySQL** column that contains user ids in the call. This would maintain the relational database management. |
 | 4      | **MySQL** will authenticate a valid UW Husky ID and check **Redis** for all  the  multiple user sessions and to populate the user interface with all these sessions. |
-| 5      | **RabbitMQ** is used to notify all the users that are in the same conference call. The information will be displayed as a popup saying “_user_ has joined this call”. |
+| 5      | **RabbitMQ and Chatroom Message Microservice** is used to notify all the users that are in the same conference call. The information will be displayed as a popup saying “_user_ has joined this call”. |
 | 6      | **WebRTC** offers HD video configurations by consuming their API and prompting users to give access to their webcam for the conference. Video display size can be customized. |
-| 7      | **MySQL** will be used to store message timestamps along with the message through a “createdAt” value. **RabbitMQ** will be used to notify users of a new message created. |
+| 7      | **MySQL** will be used to store message timestamps along with the message through a “createdAt” value. **RabbitMQ** will be used to notify users of a new message created. The RabbitMQ would talk directly to the client and not the gateway|
 
 4. Include a list of available endpoints your application will provide and what is the purpose it serves. Ex: GET /driver/{id}
 
