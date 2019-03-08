@@ -1,4 +1,4 @@
-# Deceptions - Project Proposal
+# Decepticons - Project Proposal
 
 ## Project Description
 1. Who is your target audience?  Who do you envision using your application? Depending on the domain of your application, there may be a variety of audiences interested in using your application.  You should hone in on one of these audiences.<br>
@@ -21,9 +21,9 @@ As developers we have never tackled creating a video conference so we believe th
 | :------  | :----------  | :-----------  | :-----------  | :-------- |
 |   1      | P0           | As a User     | I want to create a Video Conference between 4 people where I can listen and speak to other users | RedisStore, MySQL, WebRTC |
 |   2      | P1           | As a User     | I want to send messages to other people within the conference call   | RabbitMQ, RedisStore, HTML/CSS/JS
-|   3      | P0           | As a User     | I want to be authenticated to use this product as a UW member | RedisStore, MySQL |
-|   4      | P1           | As a User     | I want to add more people to a UW Hangout | MySQL |
-|   5      | P2           | As a User     | I want to know who joined the conference call | RabbitMQ, Messaging Microservice, HTML/CSS/JS |
+|   3      | P1           | As a User     | I want to add more people to a UW Hangout | MySQL |
+|   4      | P2           | As a User     | I want to know who joined the conference call | RabbitMQ, Messaging Microservice, HTML/CSS/JS |
+|   5      | P2           | As a User     | I want to be authenticated to use this product as a UW member | RedisStore, MySQL |
 |   6      | P3           | As a Developer | I want to maintain HD video quality during the hangout | WebRTC |
 |   7      | P3           | As a Developer | I want to maintain fast messaging updates across different users based on message timestamps | RabbitMQ, MySQL, Messaging Microservice |
 
@@ -34,9 +34,9 @@ As developers we have never tackled creating a video conference so we believe th
 | :----- | :------- |
 | 1      | We will be using **Redis** to store current and previous sessions of conferences. **MySQL** will store our user information to call. |
 | 2      | **MySQL** will store the user messages for each session to provide context of the previous chat. We will use **HTML/CSS/JS** to provide client feedback and to parse the message data pulled from **MySQL**. |
-| 3      | **MySQL** will be used to support multiple users in each UW Hangout. This is through updating a **MySQL** column that contains user ids in the call. This would maintain the relational database management. |
-| 4      | **MySQL** will authenticate a valid UW Husky ID and check **Redis** for all  the  multiple user sessions and to populate the user interface with all these sessions. |
-| 5      | **RabbitMQ and Chatroom Message Microservice** is used to notify all the users that are in the same conference call. The information will be displayed as a popup saying “_user_ has joined this call”. |
+| 3      | **MySQL** will authenticate a valid UW Husky ID and check **Redis** for all  the  multiple user sessions and to populate the user interface with all these sessions. |
+| 4      | **RabbitMQ and Chatroom Message Microservice** is used to notify all the users that are in the same conference call. The information will be displayed as a popup saying “_user_ has joined this call”. |
+| 5      | **MySQL** will be used to support multiple users in each UW Hangout. This is through updating a **MySQL** column that contains user ids in the call. This would maintain the relational database management. |
 | 6      | **WebRTC** offers HD video configurations by consuming their API and prompting users to give access to their webcam for the conference. Video display size can be customized. |
 | 7      | **MySQL** will be used to store message timestamps along with the message through a “createdAt” value. **RabbitMQ** will be used to notify users of a new message created. The RabbitMQ would talk directly to the client and not the gateway|
 
