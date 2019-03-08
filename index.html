@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            let sock;
+            let token;
+
+            let user = {
+                "email": "ironman100@marvel.com",
+                "password": "password",
+                "passwordConf": "password",
+                "userName": "warMachineRoxxs100",
+                "firstName": "Tony",
+                "lastName": "Stark"
+            }
+
+            document.addEventListener("DOMContentLoaded", (event) => {
+                // fetch("https://api.nehay.me/v1/users", {
+                //     method: "POST",
+                //     headers: new Headers({
+                //         'Content-Type': 'application/json'
+                //     }),
+                //     mode: "no-cors",
+                //     body: JSON.stringify(user),
+                // })
+                // .then((response) => {
+                //     console.log(response)
+
+                //     token = response.headers.get("Authorization")
+                //     sock = new WebSocket("wss://api.nehay.me/v1/ws?auth=" + token);
+                //     sock.onopen = () => {
+                //         console.log("Connection Opened");
+                //     };
+                //     sock.onclose = () => {
+                //         console.log("Connection Closed");
+                //     };
+                //     sock.onmessage = (msg) => {
+                //         console.log("Message received " + msg.data);
+                //         document.getElementById("server-text").textContent = msg.data;
+                //     };
+                // })               
+                sock = new WebSocket("wss://api.nehay.me/v1/ws?auth=VGeyat6JoP3sUVhoSLe5vAmFEMGMeysyaed9EQ8svLOIRgjuTu7r6uuwzEz47aPKkeSUjZHxbIUmqdpyIjfVLA==");
+                sock.onopen = () => {
+                    console.log("Connection Opened");
+                };
+                sock.onclose = () => {
+                    console.log("Connection Closed");
+                };
+                sock.onmessage = (msg) => {
+                    console.log("Message received " + msg.data);
+                    document.getElementById("server-text").textContent = msg.data;
+                };
+                
+            });
+            function submit() {
+                let clientMsg = document.getElementById("text-input").value;
+                console.log(clientMsg);
+                sock.send(clientMsg);
+            }
+        </script>
+    </head>
+    <body>
+        <input type="text" id="text-input" placeholder="Enter value to display" >
+        <input type="submit" onclick="submit();">
+        <div id="server-text"></div>
+        <div id="server-time"></div>
+    </body>
+</html>
