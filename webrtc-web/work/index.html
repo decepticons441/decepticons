@@ -13,17 +13,15 @@
 
   <h1>Realtime communication with WebRTC</h1>
 
-  <h2>
-    <span>Room URL: </span><span id="url">...</span>
-  </h2>
-
   <div id="videoCanvas">
-    <video id="camera" autoplay></video>
+    <video id="camera" autoplay playsinline></video>
     <canvas id="photo"></canvas>
   </div>
 
   <div id="buttons">
-    <button id="snap">Snap</button><span> then </span><button id="send">Send</button>
+    <button id="snap">Snap</button>
+    <span> then </span>
+    <button id="send">Send</button>
     <span> or </span>
     <button id="snapAndSend">Snap &amp; Send</button>
   </div>
