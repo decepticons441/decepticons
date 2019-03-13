@@ -34,23 +34,27 @@ Detailed Flow Diagram <br>
 |   6      | P1           | As a User     | I want to view all chatrooms | MySQL, Chatroom Microservice |
 |   7      | P1           | As a User     | I want to add members to chatroom | MySQL, Chatroom Microservice |
 |   8      | P1           | As a User     | I want to delete members from chatroom | MySQL, Chatroom Microservice |
-|   9      | P1           | As a User     | I want to delete people to a UW Hangout | MySQL, Chatroom Microservice |
-|   10      | P1           | As a User     | I want to add a message | MySQL, Message Microservice, RabbitMQ, Websocket |
-|   11      | P1           | As a User     | I want to delete a message | MySQL, Message Microservice, RabbitMQ, Websocket |
-|   12     | P1           | As a User     | I want to update a message | MySQL, Message Microservice, RabbitMQ, Websocket |
-|   13      | P0           | As a User     | I want to be authenticated to use this product as a UW member | RedisStore, MySQL |
+|   9      | P1           | As a User     | I want to add a message | MySQL, Message Microservice, RabbitMQ, Websocket |
+|   10      | P1           | As a User     | I want to delete a message | MySQL, Message Microservice, RabbitMQ, Websocket |
+|   11     | P1           | As a User     | I want to update a message | MySQL, Message Microservice, RabbitMQ, Websocket |
+|   12      | P0           | As a User     | I want to be authenticated to use this product as a UW member | Gateway Microservice, RedisStore, MySQL |
 
 3. For each of your user story, describe in 2-3 sentences what your technical implementation strategy is. Explicitly note in **bold** which technology you are using (if applicable):
 
 | Number | Strategy |
 | :----- | :------- |
-| 1      | We will be using **Redis** to store current and previous sessions of conferences. **MySQL** will store our user information to call. |
-| 2      | **MySQL** will store the user messages for each session to provide context of the previous chat. We will use **HTML/CSS/JS** to provide client feedback and to parse the message data pulled from **MySQL**. |
-| 3      | **MySQL** will authenticate a valid UW Husky ID and check **Redis** for all  the  multiple user sessions and to populate the user interface with all these sessions. |
-| 4      | **RabbitMQ and Chatroom Message Microservice** is used to notify all the users that are in the same conference call. The information will be displayed as a popup saying “_user_ has joined this call”. |
-| 5      | **MySQL** will be used to support multiple users in each UW Hangout. This is through updating a **MySQL** column that contains user ids in the call. This would maintain the relational database management. |
-| 6      | **WebRTC** offers HD video configurations by consuming their API and prompting users to give access to their webcam for the conference. Video display size can be customized. |
-| 7      | **MySQL** will be used to store message timestamps along with the message through a “createdAt” value. **RabbitMQ** will be used to notify users of a new message created. The RabbitMQ would talk directly to the client and not the gateway|
+| 1      | **MySQL** will store our user information to call as well as any chatroom/message information not stored originally. **RedisStore** will be used to create a session when the user logs in. **WebRTC** will maintain the peer to peer connection so people can connect to chatroom|
+| 2      | **MySQL** will be used to store message timestamps along with the message through a “createdAt” value. **RabbitMQ** will be used to notify users of a new message created. The RabbitMQ would talk directly to the client and not the gateway. The **Microservice** will handle all the API requests. **WebSockets** will be used to send information back to the client and update the UI. **HTML/CSS/JS** will be used to visualize all the conversations|
+| 3      | **MySQL** will store new chatroom information. We will use the **Chatroom Microservice** to handle the data request.|
+| 4      | **MySQL** will store the updated chatroom information. We will use the **Chatroom Microservice** to handle the data request.|
+| 5      | **MySQL** will delete a chatroom's information. We will use the **Chatroom Microservice** to handle the data request.|
+| 6      | **MySQL** will get all the chatrooms. We will use the **Chatroom Microservice** to handle the data request.|
+| 7      | **MySQL** will store new members for a specified chatroom. We will use the **Chatroom Microservice** to handle the data request.|
+| 8      | **MySQL** will delete members for a specified chatroom. We will use the **Chatroom Microservice** to handle the data request.|
+| 9      | **MySQL** will store a new message for a specified chatroom and only for the writer of the message. We will use the **Message Microservice** to handle the data request. **RabbitMQ and Websockets** would relay back the information from the server when the add button is clicked|
+| 10      | **MySQL** will delete a message for a specified chatroom and only forthe writer of the message. We will use the **Message Microservice** to handle the data request. **RabbitMQ and Websockets** would relay back the information from the server when the delete button is clicked|
+| 11      | **MySQL** will update a message for a specified chatroom and only for the writer of the message. We will use the **Message Microservice** to handle the data request. **RabbitMQ and Websockets** would relay back the information from the server when the add button is clicked|
+| 12      | **Gateway Microservice** will authenticate the user with the help of **RedisStore** to create a session. We will utilize **MySQL** to authorized the user information provided.|
 
 4. Include a list of available endpoints your application will provide and what is the purpose it serves. Ex: GET /driver/{id}
 
