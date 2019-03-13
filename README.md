@@ -1,4 +1,7 @@
-# Decepticons - Project Proposal
+# Decepticons - Project Proposal <br>
+
+<img src="b1b0d9e5a5af325e52b31a0a561fac94.jpg" alt="Decepticons Wallpaper"
+	title="Decepticons Wallpaper" width="1200" height="550" /> <br>
 
 ## Project Description
 1. Who is your target audience?  Who do you envision using your application? Depending on the domain of your application, there may be a variety of audiences interested in using your application.  You should hone in on one of these audiences.<br>
