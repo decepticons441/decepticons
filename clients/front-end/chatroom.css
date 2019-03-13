@@ -1,0 +1,53 @@
+#container {
+    padding: 3%;
+}
+
+#videos {
+    border: 1px solid grey;
+    display: inline-block;
+
+    height:400px; 
+    width:60%; 
+    clear:both;
+}
+
+#message-chat {
+    border: 1px solid grey;
+    float: right;
+
+    height: 400px; 
+    width: 30%; 
+    clear: both;
+}
+
+#icon {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    float: left;
+}
+
+#add-icon {
+    width: 15%;
+    padding-left: 5%;
+    float: left;
+}
+
+#write-message {
+    border: 1px solid grey;
+    display: inline-block;
+    position: absolute;
+    bottom: 0;
+
+    height: 100px; 
+    width: 25%; 
+    clear: both;
+}
+
+#button-boxes {
+    margin-top: 5%;
+}
+
+#add-members, #update-chat, #delete-chat {
+    margin-left: 15%;
+}

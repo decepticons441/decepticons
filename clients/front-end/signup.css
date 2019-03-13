@@ -1,0 +1,48 @@
+#container {
+    border: 1px solid grey;
+    border-radius: 40px;
+    width: 50%;
+    position: absolute;
+    top: 13%;
+    left: 25%;
+    padding: 5%;
+    margin-bottom: 7%;
+}
+
+h1 {
+    text-align: center;
+}
+
+#firstName p {
+    margin-top: 3%;
+}
+
+#firstName p, #lastName p, #userName p, #email p, #password p, #passwordConf p {
+    font-weight: 700;
+    display: inline-block;
+    margin-right: 2%;
+    margin-bottom: 1%;
+}
+
+#firstName input, #lastName input, #userName input, #email input, #password input, #passwordConf input {
+    margin-bottom: 5%;
+}
+
+#button-boxes {
+    margin-top: 10%;
+}
+
+#create-account {
+    margin-left: 30%;
+    margin-bottom: 3%;
+}
+
+#login {
+    width: 30%;
+    margin-left: 35%;
+}
+
+#account-question {
+    margin-top: 3%;
+    text-align: center;
+}
