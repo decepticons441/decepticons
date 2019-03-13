@@ -12,7 +12,7 @@ As developers we have never tackled creating a video conference so we believe th
 
 ## Technical Description
 1. Include an architectural diagram mapping 1) all server and database components, 2) flow of data, and its communication type (message? REST API?).<br>
-<img src="Decepticons - Flow Diagram.png" alt="Flow Diagram"
+<img src="Decepticons - Updated Flow Diagram.jpeg" alt="Flow Diagram"
 	title="Architectural Diagram"  />
 
 2. A summary table of user stories in the following format (P0 P1 means priority. These classifications do not factor into grading. They are more for your own benefit to think about what would be top priorities if you happened to run out of time)
@@ -96,7 +96,7 @@ As developers we have never tackled creating a video conference so we believe th
 	* 404: Message with specific ID does not exist
 	* 500: Internal Server Error
 
-## DELETE /v1/messages/:id
+### DELETE /v1/messages/:id
 * Will delete a specific message
 	* 200: Successfully deleted a message
 	* 403: User forbidden
