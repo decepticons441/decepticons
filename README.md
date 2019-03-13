@@ -18,6 +18,9 @@ As developers we have never tackled creating a video conference so we believe th
 <img src="Decepticons - Updated Flow Diagram.jpeg" alt="Flow Diagram"
 	title="Architectural Diagram"  />
 
+<img src="Decepticons - Flow Diagram 2.0.jpeg" alt="Flow Diagram 2.0"
+	title="Architectural Diagram"  />
+
 2. A summary table of user stories in the following format (P0 P1 means priority. These classifications do not factor into grading. They are more for your own benefit to think about what would be top priorities if you happened to run out of time)
 
 | Use Case | Priority     | User          | Description   | Technology |
