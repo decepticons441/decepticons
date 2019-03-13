@@ -44,6 +44,37 @@ As developers we have never tackled creating a video conference so we believe th
 
 **ALL OF THESE CALLS REQUIRE A USER IN THE X-USER HEADER**
 
+### GET /v1/users/
+* Gets all users
+* Content-Type header should all be set to application/json
+	* 200: Successfully retrieved all users
+	* 401: User is not logged in
+	* 500: Internal Server Error
+	
+### POST /v1/users
+* Creates a new user account
+* Content-Type header should all be set to application/json
+	* 201: Successfully created user
+	* 400: Request body is not a valid user
+	* 415: Content-Type not application/json
+	* 500: Internal Server Error
+
+### Get /v1/chatroom/:chatid/members
+* Get members for specific chatroom
+* Content-Type header should all be set to application/json
+	* 200: Successfully retrieved memebers from channel
+	* 401: No valid user in the X-User header
+	* 500: Internal Server Error
+	
+### POST /v1/sessions
+* Creates a new session for the user
+* Content-Type header should all be set to application/json
+	* 201: Successfully created a session
+	* 400: Request body is not a valid
+	* 401: Email/Password incorrect
+	* 415: Content-Type is not application/json
+	* 500: Internal Server Error
+	
 ### GET /v1/chatroom
 * Will respond with all of the chatrooms that the user has stored
 * Content-Type header should all be set to application/json
@@ -59,36 +90,44 @@ As developers we have never tackled creating a video conference so we believe th
 	* 500: Internal Server Error
 
 ### GET /v1/chatroom/:id
-* Will respond by grabbing a specific chat room 
+* Will respond by grabbing a specific chatroom 
 * Content-Type header should all be set to application/json
 	* 200: Successfully retrieved the chatrooms
 	* 404: Chatroom with specific ID does not exist
 	* 500: Internal Server Error
 
+### PATCH /v1/chatroom/:id
+* Updates the specific chatroom’s name and description
+* Content-Type header should all be set to application/json
+	* 200: Successfully changed
+	* 403: User forbidden
+	* 404: Chatroom with specific ID does not exist
+	* 500: Internal Server Error
+	
 ### POST /v1/chatroom/:id
-* Response included message recently added in body
+* Response includes added message body
 * Content-Type header should all be set to application/json
 	* 201: Successfully retrieved the chatrooms
 	* 403: User forbidden
 	* 404: Chatroom with specific ID does not exist
 	* 500: Internal Server Error
 
-### PATCH /v1/chatroom/:id
-* Updates the specific channel’s name and description
-* Content-Type header should all be set to application/json
-	* 200: Successfully changed
-	* 403: User forbidden
-	* 404: Chatroom with specific ID does not exist
-	* 500: Internal Server Error
-
 ### DELETE /v1/chatroom/:id
-* Deletes a specific channel
+* Deletes a specific chatroom
 	* 200: Successfully deleted
 	* 403: User forbidden
 	* 404: Chatroom with specific ID does not exist
 	* 500: Internal Server Error
 
-### PATCH /v1/messages/:id
+### POST /v1/chatroom/:chatid/:id
+* Response includes updated chatroom's name/description/private/public
+* Content-Type header should all be set to application/json
+	* 201: Successfully retrieved the chatrooms
+	* 403: User forbidden
+	* 404: Chatroom with specific ID does not exist
+	* 500: Internal Server Error
+
+### PATCH /v1/chatroom/:chatid/messages/:id
 * Updates the body of a specific message
 * Content-Type header should all be set to application/json
 	* 200: Successfully changed
@@ -96,7 +135,7 @@ As developers we have never tackled creating a video conference so we believe th
 	* 404: Message with specific ID does not exist
 	* 500: Internal Server Error
 
-### DELETE /v1/messages/:id
+### DELETE /v1/chatroom/:chatid/messages/:id
 * Will delete a specific message
 	* 200: Successfully deleted a message
 	* 403: User forbidden
@@ -120,51 +159,12 @@ As developers we have never tackled creating a video conference so we believe th
 	* 404: Chatroom with specific ID does not exist
 	* 500: Internal Server Error
 
-### POST /v1/users
-* Creates a new user account
-* Content-Type header should all be set to application/json
-	* 201: Successfully created user
-	* 400: Request body is not a valid user
-	* 415: Content-Type not application/json
-	* 500: Internal Server Error
-
 ### GET /v1/users/:id
 * Gets specific user
 * Content-Type header should all be set to application/json
 	* 201: Successfully created user
 	* 400: User id is not valid
 	* 401: User is not logged in
-	* 500: Internal Server Error
-
-### PATCH /v1/users/:id
-* Updates user information
-* Content-Type header should all be set to application/json
-	* 200: Successfully edited a user
-	* 400: Updates were invalid
-	* 401: User is not logged in or edited a user that is not authorized
-	* 415: Content-Type not application/json
-	* 500: Internal Server Error
-
-### POST /v1/sessions
-* Creates a new session for the user
-* Content-Type header should all be set to application/json
-	* 201: Successfully created a session
-	* 400: Request body is not a valid
-	* 401: Email/Password incorrect
-	* 415: Content-Type is not application/json
-	* 500: Internal Server Error
-
-### DELETE /v1/sessions/:id
-* Ends a user session
-	* 200: Successfully ended session
-	* 403: User is attempting to end another user’s session
-	* 500: Internal Server Error
-
-### DELETE /v1/sessions/mine
-* Ends a user session
-* SessionID is mine
-	* 200: Successfully ended session
-	* 403: User is attempting to end another user’s session
 	* 500: Internal Server Error
 	
 5. Include any database schemas as appendix
