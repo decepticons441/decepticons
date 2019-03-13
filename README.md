@@ -15,9 +15,10 @@ As developers we have never tackled creating a video conference so we believe th
 
 ## Technical Description
 1. Include an architectural diagram mapping 1) all server and database components, 2) flow of data, and its communication type (message? REST API?).<br>
+Overall Architecture <br>
 <img src="Decepticons - Updated Flow Diagram.jpeg" alt="Flow Diagram"
 	title="Architectural Diagram"  />
-
+Detailed Flow Diagram <br>
 <img src="Flow Diagram 2nd Version.jpeg" alt="Flow Diagram 2.0"
 	title="Architectural Diagram"  />
 
