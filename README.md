@@ -27,13 +27,18 @@ Detailed Flow Diagram <br>
 | Use Case | Priority     | User          | Description   | Technology |
 | :------  | :----------  | :-----------  | :-----------  | :-------- |
 |   1      | P0           | As a User     | I want to create a Video Conference between 4 people where I can listen and speak to other users | RedisStore, MySQL, WebRTC |
-|   2      | P1           | As a User     | I want to send messages to other people within the conference call   | RabbitMQ, RedisStore, HTML/CSS/JS
-|   3      | P1           | As a User     | I want to add more people to a UW Hangout | MySQL |
-|   4      | P2           | As a User     | I want to know who joined the conference call | RabbitMQ, Messaging Microservice, HTML/CSS/JS |
-|   5      | P2           | As a User     | I want to be authenticated to use this product as a UW member | RedisStore, MySQL |
-|   6      | P3           | As a Developer | I want to maintain HD video quality during the hangout | WebRTC |
-|   7      | P3           | As a Developer | I want to maintain fast messaging updates across different users based on message timestamps | RabbitMQ, MySQL, Messaging Microservice |
-
+|   2      | P0           | As a User     | I want to send messages to other people within the conference call   | RabbitMQ, RedisStore, HTML/CSS/JS, Messaging Microservice, Websocket
+|   3      | P1           | As a User     | I want to create a chatroom | MySQL, Chatroom Microservice |
+|   4      | P1           | As a User     | I want to update my existing chatroom | MySQL, Chatroom Microservice|
+|   5      | P1           | As a User     | I want to delete a chatroom | MySQL, Chatroom Microservice |
+|   6      | P1           | As a User     | I want to view all chatrooms | MySQL, Chatroom Microservice |
+|   7      | P1           | As a User     | I want to add members to chatroom | MySQL, Chatroom Microservice |
+|   8      | P1           | As a User     | I want to delete members from chatroom | MySQL, Chatroom Microservice |
+|   9      | P1           | As a User     | I want to delete people to a UW Hangout | MySQL, Chatroom Microservice |
+|   10      | P1           | As a User     | I want to add a message | MySQL, Message Microservice, RabbitMQ, Websocket |
+|   11      | P1           | As a User     | I want to delete a message | MySQL, Message Microservice, RabbitMQ, Websocket |
+|   12     | P1           | As a User     | I want to update a message | MySQL, Message Microservice, RabbitMQ, Websocket |
+|   13      | P0           | As a User     | I want to be authenticated to use this product as a UW member | RedisStore, MySQL |
 
 3. For each of your user story, describe in 2-3 sentences what your technical implementation strategy is. Explicitly note in **bold** which technology you are using (if applicable):
 
