@@ -33,7 +33,22 @@ window.onclick = function(event) {
 var createChannel = document.getElementById("create-channel");
 
 createChannel.addEventListener("click", chatroom);
+let sendData = {
+    "email": document.querySelector("#email"),
+    "password": document.querySelector("#password"),
+};
+
 
 function chatroom() {
+    const response = await fetch("https://api.nehay.me/v1/sessions", {
+            method: "POST",
+            body: JSON.stringify(sendData),
+            headers: new Headers({
+                "Content-Type": "application/json"
+            })
+        });
+        if (response.status == 404) {
+            console.log("You are not a user within our system/you are not authorized to use this system. Please make a new account or try again.")
+        }
     window.location.href="chatroom.html";
 }
