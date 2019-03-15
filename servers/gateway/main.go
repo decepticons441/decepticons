@@ -232,6 +232,7 @@ func main() {
 
 	r.Handle("/v1/channels", messageProxy) // register the proxies
 	r.Handle("/v1/channels/{id}", messageProxy)
+	r.Handle("/v1/channels/members", messageProxy)
 	r.Handle("/v1/channels/{channelID}/members", messageProxy)
 	r.Handle("/v1/messages/{id}", messageProxy)
 

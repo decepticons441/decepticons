@@ -11,11 +11,13 @@ import (
 	"io"
 	"log"
 	"net/http"
+
 	// "path"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
-	"sort"
+
 	"github.com/gorilla/mux"
 	"github.com/nehay100/assignments-nehay100/servers/gateway/models/users"
 	"github.com/nehay100/assignments-nehay100/servers/gateway/sessions"
@@ -33,18 +35,18 @@ const paramAuthorization = "auth"
 // 	if username {
 // 		useName := strings.Split(user.UserName, " ")
 // 		names = append(names, useName)
-// 	}	
+// 	}
 // 	id := user.ID
 // 	names = append(names, fname)
 // 	names = append(names, lname)
-	
+
 // 	for _, name := range names {
 // 		for _ ,word := range name {
 // 			if remove {
 // 				sh.Trie.Remove(word, id)
 // 			} else {
 // 				sh.Trie.Add(word, id)
-// 			}			
+// 			}
 // 		}
 // 	}
 // }
@@ -119,7 +121,7 @@ func (sh *SessionHandler) UsersHandler(w http.ResponseWriter, r *http.Request) {
 		sh.Trie.Add(strings.ToLower(insertUser.FirstName), insertUser.ID)
 		sh.Trie.Add(strings.ToLower(insertUser.LastName), insertUser.ID)
 		sh.Trie.Add(strings.ToLower(insertUser.UserName), insertUser.ID)
-		
+
 		// _, err = sh.Users.AddAllToTrie()
 		// if err != nil {
 		// 	http.Error(w, fmt.Sprintf("User-Handler: Error when inserting new user to trie %v", err), http.StatusInternalServerError)
@@ -139,7 +141,6 @@ func (sh *SessionHandler) UsersHandler(w http.ResponseWriter, r *http.Request) {
 		sh.Trie.Add(strings.ToLower(insertUser.FirstName), insertUser.ID)
 		sh.Trie.Add(strings.ToLower(insertUser.LastName), insertUser.ID)
 		sh.Trie.Add(strings.ToLower(insertUser.UserName), insertUser.ID)
-		
 
 		w.Header().Set(ContentTypeHeader, ContentTypeApplicationJSON)
 		w.WriteHeader(http.StatusCreated)
@@ -156,13 +157,28 @@ func (sh *SessionHandler) UsersHandler(w http.ResponseWriter, r *http.Request) {
 				http.StatusUnauthorized)
 			return
 		}
+		
 		query := r.FormValue("q")
 		log.Println("Query: ", query)
 		query = strings.ToLower(query)
-		if len(query) == 0 {
-			http.Error(w, fmt.Sprintf("UserHandler: error parsing id string into int64: %v", err),
-				http.StatusBadRequest)
-			return
+		if len(query) == 0 { // getting all users w/o query
+			userID := state.User.ID
+			user, err := sh.Users.GetByID(userID)
+			if err != nil {
+				http.Error(w, fmt.Sprintf("UserHandler: error getting user by id/user not found: %v", err),
+					http.StatusNotFound)
+				return
+			}
+			w.Header().Add(ContentTypeHeader, ContentTypeApplicationJSON)
+			w.WriteHeader(http.StatusOK)
+			if err := json.NewEncoder(w).Encode(user); err != nil {
+				http.Error(w, fmt.Sprintf("UserHandler: Error encoding JSON: %v", err),
+					http.StatusInternalServerError)
+				return
+			}
+			// http.Error(w, fmt.Sprintf("UserHandler: error parsing id string into int64: %v", err),
+			// 	http.StatusBadRequest)
+			// return
 		}
 		idSet := sh.Trie.Find(query, 20)
 		log.Println("Ids: ", idSet)
@@ -178,8 +194,8 @@ func (sh *SessionHandler) UsersHandler(w http.ResponseWriter, r *http.Request) {
 			}
 			users = append(users, user)
 		}
-		sort.Slice(users, func(i, j int) bool { 
-			return users[i].UserName < users[j].UserName 
+		sort.Slice(users, func(i, j int) bool {
+			return users[i].UserName < users[j].UserName
 		})
 
 		log.Println("Users: ", users)
