@@ -22,7 +22,8 @@ function home() {
             method: "POST",
             body: JSON.stringify(sendData),
             headers: new Headers({
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": sessionStorage.getItem('bearer')       // won't work
             })
         });
         if (userCheck.status == 404) {
@@ -33,7 +34,8 @@ function home() {
         const specificUser = await fetch("https://api.nehay.me/v1/users/" + userCheck.body.id, {
             method: "GET",
             headers: new Headers({
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": sessionStorage.getItem('bearer')       // won't work
             })
         });
        
