@@ -20,28 +20,25 @@
     clear: both;
 }
 
-#icon {
-    display: flex;
-    position: absolute;
-    bottom: 0;
-    float: left;
+#write-message {
+    border-top: 1px solid grey;
+    display: inline-block;
+    margin-top: 83%;
+    height: 100px; 
+    width: 79.4%; 
+    clear: both;
 }
 
 #add-icon {
-    width: 15%;
-    padding-left: 5%;
-    float: left;
-}
-
-#write-message {
-    border: 1px solid grey;
-    display: inline-block;
-    position: absolute;
-    bottom: 0;
-
-    height: 100px; 
-    width: 25%; 
-    clear: both;
+    width: 15.5%;
+    height: 25%;
+    padding-left: 7%;
+    padding-right: 13%;
+    padding-top: 10%;
+    float: right;
+    margin-top: 83%;
+    font-size: 28px;
+    border: 1px solid rgb(53, 23, 23);
 }
 
 #button-boxes {
@@ -50,4 +47,53 @@
 
 #add-members, #update-chat, #delete-chat {
     margin-left: 15%;
+}
+
+
+/* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.create-chatroom, .add {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+}
+
+.close, .close-add {
+    color: #aaaaaa;
+    float: right;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus, .close-add:hover, .close-add:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#results-searching-users p, #current-members p {
+    padding-top: 3%;
+}
+
+#search {
+    width: 100%;
+}
+
+#row2-add, #row2-delete {
+    text-align: center;
 }
