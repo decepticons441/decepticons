@@ -40,6 +40,7 @@
 
                 <button type="button" class="btn btn-primary" id="create-chat">Create a Chatroom</button>
 
+            </div></div>
                 <!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal -->
                 <!-- The Modal -->
                 <div id="pop-up" class="modal">
@@ -54,16 +55,16 @@
                         </div>
                         <div id="description">
                             <p>Description</p>
-                            <input type="text" class="form-control">
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                         </div>
                         <div id="public-privacy">
                             <p>Public/Privacy</p>
-                            <input type="text" class="form-control">
+                            <label class="radio-inline"><input type="radio" name="optradio" checked> Public</label>
+                            <label id="radio-option" class="radio-inline"><input type="radio" name="optradio"> Privacy</label>
                         </div>
                         <button type="submit" class="btn btn-primary" id="create-channel">Done</button>
                     </div>
-                </div>
-            </div>
+              
         </div>
     </div>
 </body>

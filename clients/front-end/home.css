@@ -73,3 +73,7 @@ table {
     text-decoration: none;
     cursor: pointer;
 }
+
+#radio-option {
+    padding-left: 5%;
+}

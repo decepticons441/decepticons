@@ -17,10 +17,12 @@ span.addEventListener("click", closeModal);
 
 function openModal() {
     modal.style.display = "block";
+    document.getElementById("container").style.filter = "blur(5px)";
 }
 
 function closeModal() {
     modal.style.display = "none";
+    document.getElementById("container").style.filter = "blur(0px)";
 }
 
 // When the user clicks anywhere outside of the modal, close it
