@@ -183,6 +183,12 @@ Detailed Flow Diagram <br>
 	* 401: User is not logged in
 	* 500: Internal Server Error
 	
+### GET /v1/users?q={search query}
+* Gets specific user
+* Content-Type header should all be set to application/json
+	* 200: Successfully changed
+	* 401: User is not logged in
+	
 5. Include any database schemas as appendix
 ### Sessions
 This will contain a redis key-value store that contains sessionIDs, session startTime, and the users information
