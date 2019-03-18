@@ -4,6 +4,7 @@ h1 {
 
 #container {
     border: 1px solid grey;
+    /* border-radius: 40px; */
     width: 50%;
     position: absolute;
     top: 13%;
@@ -71,4 +72,8 @@ table {
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+#radio-option {
+    padding-left: 5%;
 }

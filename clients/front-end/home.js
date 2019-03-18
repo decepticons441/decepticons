@@ -17,10 +17,12 @@ span.addEventListener("click", closeModal);
 
 function openModal() {
     modal.style.display = "block";
+    document.getElementById("container").style.filter = "blur(5px)";
 }
 
 function closeModal() {
     modal.style.display = "none";
+    document.getElementById("container").style.filter = "blur(0px)";
 }
 
 // When the user clicks anywhere outside of the modal, close it
@@ -29,26 +31,89 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+let sendData = {
+    "id": sessionStorage.getItem('user').id
+}
+
+window.onload = function (e) {
+    const res = async () => {
+        const specificChannelsBasedOnUser = await fetch("https://api.nehay.me/v1/channels/members", {
+            method: "GET",
+            body: JSON.stringify(sendData),
+            headers: new Headers({
+                "Content-Type": "application/json",
+                "Authorization": sessionStorage.getItem('bearer')
+            })
+        });
+        if (specificChannelsBasedOnUser.status == 500) {
+            console.log(specificChannelsBasedOnUser);
+        }
+        document.getElementById("general").addEventListener("click", function() {
+            specificChatroom();
+        });
+
+        var tableBody = document.querySelector("#table");
+        for (i = 1; i < specificChannelsBasedOnUser.body; i++) {
+            var row = tableBody.insertRow(i);
+            row.addEventListener("click", function() {
+                specificChatroom(specificChannelsBasedOnUser[i].id);
+            });
+
+            var channelID = row.insertCell(0);
+            channelID.innerHTML = specificChannelsBasedOnUser[i].id;
+            var channelName = row.insertCell(1);
+            channelName.innerHTML = specificChannelsBasedOnUser[i].nameString;
+            var scope = row.insertCell(2);
+            var privateBool = specificChannelsBasedOnUser[i].privateBool;
+            if (privateBool) {
+                scope.innerHTML = "private";
+            } else {
+                scope.innerHTML = "public";
+            }
+        }
+    }
+}
 
 var createChannel = document.getElementById("create-channel");
 
 createChannel.addEventListener("click", chatroom);
-let sendData = {
-    "email": document.querySelector("#email"),
-    "password": document.querySelector("#password"),
+let sendData2 = {
+    "nameString": document.getElementById("name"),
+    "descriptionString": document.getElementById("description"),
+    "privateBool": document.getElementById("public-privacy"),
 };
 
-
 function chatroom() {
-    const response = await fetch("https://api.nehay.me/v1/sessions", {
+    const res = async () => {
+        const response = await fetch("https://api.nehay.me/v1/channels", {
             method: "POST",
-            body: JSON.stringify(sendData),
+            body: JSON.stringify(sendData2),
             headers: new Headers({
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": sessionStorage.getItem('bearer')
             })
         });
-        if (response.status == 404) {
-            console.log("You are not a user within our system/you are not authorized to use this system. Please make a new account or try again.")
+        if (response.status == 400) {
+            console.log("Error when making new user. try again.")
         }
+        sessionStorage.setItem('currChannel', response.body.id);
+    }
+    window.location.href="chatroom.html";
+}
+
+function specificChatroom(id) {
+    const res = async () => {
+        const specificChannel = await fetch("https://api.nehay.me/v1/channels/" + id, {
+            method: "GET",
+            headers: new Headers({
+                "Content-Type": "application/json",
+                "Authorization": sessionStorage.getItem('bearer')
+            })
+        });
+        if (specificChannel.status == 500) {
+            console.log(specificChannel);
+        }
+        sessionStorage.setItem('currChannel', specificChannel);
+    }
     window.location.href="chatroom.html";
 }

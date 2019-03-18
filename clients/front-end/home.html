@@ -18,33 +18,29 @@
         <div id="container">
             <p>Select a Chatroom to Join</p>
 
-            <!-- NEED TO LINK WITH DB TO GET USER'S SUBSCRIBED CHANNELS -->
+            <!-- NEED TO LINK WITH DB TO GET USER'S SUBSCRIBED CHANNELS FROM JS AND LINK EACH ROW TO CHATROOMS! -->
             <!-- Possible help: https://stackoverflow.com/questions/18333427/how-to-insert-row-in-html-table-body-in-javascript -->
             <div id="chatroom-table">
                 <table class="table table-hover">
                     <thead>
                         <tr>
+                            <th scope="col">Channel ID</th>
                         <th scope="col">Channel Name</th>
                         <th scope="col">Privacy</th>
-                        <th scope="col">Number of Members</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
+                    <tbody id="table">
+                        <tr id="general">
+                            <td>-1</td>
                             <td>General</td>
                             <td>Public</td>
-                            <td>10 Members</td>
-                        </tr>
-                        <tr>
-                            <td>Channel #1</td>
-                            <td>Privacy</td>
-                            <td>100 Members</td>
                         </tr>
                     </tbody>
                 </table>
 
                 <button type="button" class="btn btn-primary" id="create-chat">Create a Chatroom</button>
 
+            </div></div>
                 <!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal -->
                 <!-- The Modal -->
                 <div id="pop-up" class="modal">
@@ -59,16 +55,16 @@
                         </div>
                         <div id="description">
                             <p>Description</p>
-                            <input type="text" class="form-control">
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                         </div>
                         <div id="public-privacy">
                             <p>Public/Privacy</p>
-                            <input type="text" class="form-control">
+                            <label class="radio-inline"><input type="radio" name="optradio" checked> Public</label>
+                            <label id="radio-option" class="radio-inline"><input type="radio" name="optradio"> Privacy</label>
                         </div>
                         <button type="submit" class="btn btn-primary" id="create-channel">Done</button>
                     </div>
-                </div>
-            </div>
+              
         </div>
     </div>
 </body>

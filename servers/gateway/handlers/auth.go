@@ -157,6 +157,7 @@ func (sh *SessionHandler) UsersHandler(w http.ResponseWriter, r *http.Request) {
 				http.StatusUnauthorized)
 			return
 		}
+		
 		query := r.FormValue("q")
 		log.Println("Query: ", query)
 		query = strings.ToLower(query)

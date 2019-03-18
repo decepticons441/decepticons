@@ -16,18 +16,23 @@ let sendData = {
 };
 
 function home() {
-    const response = await fetch("https://api.nehay.me/v1/users", {
-        method: "POST",
-        body: JSON.stringify(sendData),
-        headers: new Headers({
-            "Content-Type": "application/json"
-        })
-    });
-    if (response.status == 400) {
-        console.log("Error when making new user. try again.")
+    const res = async () => {
+        const response = await fetch("https://api.nehay.me/v1/users", {
+            method: "POST",
+            body: JSON.stringify(sendData),
+            headers: new Headers({
+                "Content-Type": "application/json"
+            })
+        });
+        if (response.status == 400) {
+            console.log("Error when making new user. try again.")
+        }
+        console.log(response)
+        var tokenArr = new Array();
+        tokenArr = response.headers["Authorization"].split(" ");
+        sessionStorage.setItem('bearer', tokenArr[1]);
+        window.location.href="home.html";
     }
-    console.log(response)
-    window.location.href="home.html";
 }
 
 function auth() {
