@@ -29,12 +29,12 @@ Detailed Flow Diagram <br>
 |   1      | P0           | As a User     | I want to create a Video Conference between 4 people where I can listen and speak to other users | RedisStore, MySQL, WebRTC |
 |   2      | P0           | As a User     | I want to send messages to other people within the conference call   | RabbitMQ, RedisStore, HTML/CSS/JS, Messaging Microservice, Websocket
 |   3      | P0           | As a User     | I want to be authenticated to use this product as a UW member | Gateway Microservice, RedisStore, MySQL |
-|   4      | P1           | As a User     | I want to create a chatroom | MySQL, Chatroom Microservice |
-|   5      | P1           | As a User     | I want to update my existing chatroom | MySQL, Chatroom Microservice|
-|   6      | P1           | As a User     | I want to delete a chatroom | MySQL, Chatroom Microservice |
-|   7      | P1           | As a User     | I want to view all chatrooms | MySQL, Chatroom Microservice |
-|   8      | P1           | As a User     | I want to add members to chatroom | MySQL, Chatroom Microservice |
-|   9      | P1           | As a User     | I want to delete members from chatroom | MySQL, Chatroom Microservice |
+|   4      | P1           | As a User     | I want to create a channel | MySQL, Message Microservice |
+|   5      | P1           | As a User     | I want to update my existing channel | MySQL, Message Microservice|
+|   6      | P1           | As a User     | I want to delete a channel | MySQL, Message Microservice |
+|   7      | P1           | As a User     | I want to view all channels | MySQL, Message Microservice |
+|   8      | P1           | As a User     | I want to add members to channel | MySQL, Message Microservice |
+|   9      | P1           | As a User     | I want to delete members from channel | MySQL, Message Microservice |
 |   10      | P1           | As a User     | I want to add a message | MySQL, Message Microservice, RabbitMQ, Websocket |
 |   11      | P1           | As a User     | I want to delete a message | MySQL, Message Microservice, RabbitMQ, Websocket |
 |   12     | P1           | As a User     | I want to update a message | MySQL, Message Microservice, RabbitMQ, Websocket |
@@ -43,18 +43,18 @@ Detailed Flow Diagram <br>
 
 | Number | Strategy |
 | :----- | :------- |
-| 1      | **MySQL** will store our user information to call as well as any chatroom/message information not stored originally. **RedisStore** will be used to create a session when the user logs in. **WebRTC** will maintain the peer to peer connection so people can connect to chatroom|
+| 1      | **MySQL** will store our user information to call as well as any channel/message information not stored originally. **RedisStore** will be used to create a session when the user logs in. **WebRTC** will maintain the peer to peer connection so people can connect to chatroom|
 | 2      | **MySQL** will be used to store message timestamps along with the message through a “createdAt” value. **RabbitMQ** will be used to notify users of a new message created. The RabbitMQ would talk directly to the client and not the gateway. The **Microservice** will handle all the API requests. **WebSockets** will be used to send information back to the client and update the UI. **HTML/CSS/JS** will be used to visualize all the conversations|
 | 3      | **Gateway Microservice** will authenticate the user with the help of **RedisStore** to create a session. We will utilize **MySQL** to authorized the user information provided.|
-| 4      | **MySQL** will store new chatroom information. We will use the **Chatroom Microservice** to handle the data request.|
-| 5      | **MySQL** will store the updated chatroom information. We will use the **Chatroom Microservice** to handle the data request.|
-| 6      | **MySQL** will delete a chatroom's information. We will use the **Chatroom Microservice** to handle the data request.|
-| 7      | **MySQL** will get all the chatrooms. We will use the **Chatroom Microservice** to handle the data request.|
-| 8      | **MySQL** will store new members for a specified chatroom. We will use the **Chatroom Microservice** to handle the data request.|
-| 9      | **MySQL** will delete members for a specified chatroom. We will use the **Chatroom Microservice** to handle the data request.|
-| 10      | **MySQL** will store a new message for a specified chatroom and only for the writer of the message. We will use the **Message Microservice** to handle the data request. **RabbitMQ and Websockets** would relay back the information from the server when the add button is clicked|
-| 11      | **MySQL** will delete a message for a specified chatroom and only forthe writer of the message. We will use the **Message Microservice** to handle the data request. **RabbitMQ and Websockets** would relay back the information from the server when the delete button is clicked|
-| 12     | **MySQL** will update a message for a specified chatroom and only for the writer of the message. We will use the **Message Microservice** to handle the data request. **RabbitMQ and Websockets** would relay back the information from the server when the add button is clicked|
+| 4      | **MySQL** will store new channel information. We will use the **Message Microservice** to handle the data request.|
+| 5      | **MySQL** will store the updated channel information. We will use the **Message Microservice** to handle the data request.|
+| 6      | **MySQL** will delete a channel's information. We will use the **Message Microservice** to handle the data request.|
+| 7      | **MySQL** will get all the channels. We will use the **Message Microservice** to handle the data request.|
+| 8      | **MySQL** will store new members for a specified channel. We will use the **Message Microservice** to handle the data request.|
+| 9      | **MySQL** will delete members for a specified channel. We will use the **Message Microservice** to handle the data request.|
+| 10      | **MySQL** will store a new message for a specified channel and only for the writer of the message. We will use the **Message Microservice** to handle the data request. **RabbitMQ and Websockets** would relay back the information from the server when the add button is clicked|
+| 11      | **MySQL** will delete a message for a specified channel and only forthe writer of the message. We will use the **Message Microservice** to handle the data request. **RabbitMQ and Websockets** would relay back the information from the server when the delete button is clicked|
+| 12     | **MySQL** will update a message for a specified channel and only for the writer of the message. We will use the **Message Microservice** to handle the data request. **RabbitMQ and Websockets** would relay back the information from the server when the add button is clicked|
 
 4. Include a list of available endpoints your application will provide and what is the purpose it serves. Ex: GET /driver/{id}
 
@@ -75,7 +75,7 @@ Detailed Flow Diagram <br>
 	* 415: Content-Type not application/json
 	* 500: Internal Server Error
 
-### Get /v1/chatroom/:chatid/members
+### Get /v1/channels/:chatid/members
 * Get members for specific chatroom
 * Content-Type header should all be set to application/json
 	* 200: Successfully retrieved memebers from channel
@@ -91,28 +91,28 @@ Detailed Flow Diagram <br>
 	* 415: Content-Type is not application/json
 	* 500: Internal Server Error
 	
-### GET /v1/chatroom
+### GET /v1/channels
 * Will respond with all of the chatrooms that the user has stored
 * Content-Type header should all be set to application/json
 	* 200: Successfully retrieved the chatrooms
 	* 401: No valid user in the X-User header
 	* 500: Internal Server Error
 
-### POST /v1/chatroom
+### POST /v1/channels
 * Creates a new chatroom
 * Content-Type header should all be set to application/json
 	* 201: Successfully created the chatroom
 	* 403: Unauthorized to Make Channel
 	* 500: Internal Server Error
 
-### GET /v1/chatroom/:id
+### GET /v1/channels/:id
 * Will respond by grabbing a specific chatroom 
 * Content-Type header should all be set to application/json
 	* 200: Successfully retrieved the chatrooms
 	* 404: Chatroom with specific ID does not exist
 	* 500: Internal Server Error
 
-### PATCH /v1/chatroom/:id
+### PATCH /v1/channels/:id
 * Updates the specific chatroom’s name and description
 * Content-Type header should all be set to application/json
 	* 200: Successfully changed
@@ -120,7 +120,7 @@ Detailed Flow Diagram <br>
 	* 404: Chatroom with specific ID does not exist
 	* 500: Internal Server Error
 	
-### POST /v1/chatroom/:id
+### POST /v1/channels/:id
 * Response includes added message body
 * Content-Type header should all be set to application/json
 	* 201: Successfully retrieved the chatrooms
@@ -128,14 +128,14 @@ Detailed Flow Diagram <br>
 	* 404: Chatroom with specific ID does not exist
 	* 500: Internal Server Error
 
-### DELETE /v1/chatroom/:id
+### DELETE /v1/channels/:id
 * Deletes a specific chatroom
 	* 200: Successfully deleted
 	* 403: User forbidden
 	* 404: Chatroom with specific ID does not exist
 	* 500: Internal Server Error
 
-### POST /v1/chatroom/:chatid/:id
+### POST /v1/channels/:chatid/:id
 * Response includes updated chatroom's name/description/private/public
 * Content-Type header should all be set to application/json
 	* 201: Successfully retrieved the chatrooms
@@ -143,7 +143,7 @@ Detailed Flow Diagram <br>
 	* 404: Chatroom with specific ID does not exist
 	* 500: Internal Server Error
 
-### PATCH /v1/chatroom/:chatid/messages/:id
+### PATCH /v1/channels/:chatid/messages/:id
 * Updates the body of a specific message
 * Content-Type header should all be set to application/json
 	* 200: Successfully changed
@@ -151,14 +151,14 @@ Detailed Flow Diagram <br>
 	* 404: Message with specific ID does not exist
 	* 500: Internal Server Error
 
-### DELETE /v1/chatroom/:chatid/messages/:id
+### DELETE /v1/channels/:chatid/messages/:id
 * Will delete a specific message
 	* 200: Successfully deleted a message
 	* 403: User forbidden
 	* 404: Message with specific ID does not exist
 	* 500: Internal Server Error
 
-### POST /v1/chatroom/:id/members
+### POST /v1/channels/:id/members
 * Updates the specific chat room’s member list
 * Content-Type header should all be set to application/json
 	* 200: Successfully changed
@@ -167,7 +167,7 @@ Detailed Flow Diagram <br>
 	* 404: Chatroom with specific ID does not exist
 	* 500: Internal Server Error
 
-### DELETE /v1/chatroom/:id/members
+### DELETE /v1/channels/:id/members
 * Deletes a user from the list of members in the chatroom
 	* 200: Successfully changed
 	* 401: No valid user in the X-User header
@@ -222,9 +222,9 @@ create table if not exists signin (
 );
 ```
 
-### Chatroom
+### Channels
 ```
-create table if not exists chatroom (
+create table if not exists channels (
    id int not null auto_increment primary key,
    chatroomID int not null,
    createdAt datetime not null,
@@ -232,9 +232,9 @@ create table if not exists chatroom (
 );
 ```
 
-### Chatroom Members
+### Channels Members
 ```
-create table if not exists chatroom_members (
+create table if not exists channels_members (
    id int not null auto_increment primary key,
    chatroomID int not null,
    userID int not null
