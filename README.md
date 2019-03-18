@@ -143,7 +143,7 @@ Detailed Flow Diagram <br>
 	* 404: Chatroom with specific ID does not exist
 	* 500: Internal Server Error
 
-### PATCH /v1/channels/:chatid/messages/:id
+### PATCH /v1/messages/:id
 * Updates the body of a specific message
 * Content-Type header should all be set to application/json
 	* 200: Successfully changed
@@ -151,7 +151,7 @@ Detailed Flow Diagram <br>
 	* 404: Message with specific ID does not exist
 	* 500: Internal Server Error
 
-### DELETE /v1/channels/:chatid/messages/:id
+### DELETE /v1/messages/:id
 * Will delete a specific message
 	* 200: Successfully deleted a message
 	* 403: User forbidden
