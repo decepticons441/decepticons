@@ -1,11 +1,14 @@
 'use strict';
 
+// import { BeginSession } from '../../servers/gateway/sessions/session.go';
+// var token = BeginSession();
+
 const response = () => {
     let sendData = {
         "email": document.querySelector("#email").value,
         "password": document.querySelector("#password").value,
     };
-    console.log(sendData);
+
     fetch("https://api.nehay.me/v1/sessions", {
         method: "POST",
         body: JSON.stringify(sendData),

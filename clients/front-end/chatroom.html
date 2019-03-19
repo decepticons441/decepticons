@@ -14,7 +14,7 @@
 </head>
 <body>
     <div id="container">
-        <h1>Chatroom #1 /////////// Name</h1>
+        <h1 id="channel-name">Chatroom #1 /////////// Name</h1>
         <div id="home-icon">
             Home
         </div>
@@ -103,13 +103,13 @@
             <div class="update-chatroom">
                 <span class="close-update">&times;</span>
                 
-                <div id="name">
+                <div>
                     <p>Name</p>
-                    <input type="text" class="form-control">
+                    <input type="text" id="name" class="form-control">
                 </div>
-                <div id="description">
+                <div>
                     <p>Description</p>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <textarea class="form-control" id="description" rows="3"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary" id="members-done">Done</button>
             </div>

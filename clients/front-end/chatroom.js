@@ -21,6 +21,7 @@ function closeModalAdd() {
     addModal.style.display = "none";
 }
 window.onload = function(event) {
+    document.getElementById("channel-name").innerHTML = sessionStorage.getItem('currChannel').nameString;
     const res = () => {
         fetch("https://api.nehay.me/v1/channels/" + sessionStorage.getItem('currChannel'), {
             method: "GET",
@@ -32,6 +33,7 @@ window.onload = function(event) {
                 console.log("Error when getting channels. try again.");
                 console.log(messages);
             }
+            console.log(messages);
             for (i = 1; i < messages.body; i++) {
                 var messageDiv = document.createElement("div");
             
@@ -94,6 +96,7 @@ function editMessage(messageID, message) {
             console.log("Error when updating message. try again.")
             console.log(messages);
         }
+        console.log(messages);
     })
     // if (specificChannel.status == 500) {
     //     console.log(specificChannel);
@@ -111,6 +114,7 @@ function deleteMessage(messageID) {
             console.log("Error when deleting message. try again.")
             console.log(messages);
         }
+        console.log(messages);
     })
     // if (specificChannel.status == 500) {
     //     console.log(specificChannel);
@@ -127,8 +131,9 @@ window.onclick = function(event) {
 
 document.getElementById("buttonSearch").addEventListener("click", search);
 
-var addMembersDone= document.getElementById("add-members-done");
+var addMembers= document.getElementById("add-members-done");
 addMembers.addEventListener("click", addNewMembersDone);
+
 function addNewMembersDone() {
     window.location.href="chatroom.html";
 }
@@ -145,7 +150,7 @@ function search() {
                 console.log("Error when searching for users. try again.")
                 console.log(users);
             }
-            
+            console.log(users);
             var tableBody = document.querySelector("#results-users");
             for (i = 1; i < users.body; i++) {
                 var row = tableBody.insertRow(i);
@@ -186,7 +191,7 @@ function addMember(memberID) {
                 console.log("Error when adding members. try again.")
                 console.log(users);
             }
-
+            console.log(users);
             var tableBody = document.querySelector("#current-members");
             var row = tableBody.insertRow(i);
             // var photo = row.insertCell(0);
@@ -225,6 +230,7 @@ function removeMember(memberID) {
                 console.log("Error when adding members. try again.")
                 console.log(users);
             }
+            console.log(users);
         })
     }
     res();
@@ -274,6 +280,7 @@ function chatroom() {
                 console.log("Error when updating channel. try again.")
                 console.log(channel);
             }
+            console.log(channel);
         })
     }
     res();

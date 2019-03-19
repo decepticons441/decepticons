@@ -32,36 +32,32 @@ window.onclick = function(event) {
     }
 }
 
-window.onload = function (e) {
-    let sendData = {
-        "id": sessionStorage.getItem('user').id
-    }
+window.onload = function () {
     const res = () => {
-        fetch("https://api.nehay.me/v1/channels/" + sessionStorage.getItem('currChannel') + "/members", {
+        fetch("https://api.nehay.me/v1/channels/members", {
             method: "GET",
-            body: JSON.stringify(sendData),
             headers: new Headers({
-                "Content-Type": "application/json",
                 "Authorization": sessionStorage.getItem('bearer')
             })
-        }).then((specificChannelsBasedOnUser) => {
-            if (specificChannelsBasedOnUser.status == 401 || specificChannelsBasedOnUser.status == 500) {
-                console.log("Error when getting channels. try again.")
-                console.log(specificChannelsBasedOnUser);
+        }).then((channels) => {
+            if (channels.status == 401 || channels.status == 500) {
+                console.log("Error when getting channels specific to user. try again.")
+                console.log(channels);
             }
+            console.log(channels);
             var tableBody = document.querySelector("#table");
-            for (i = 1; i < specificChannelsBasedOnUser.body; i++) {
+            for (i = 1; i < channels.body; i++) {
                 var row = tableBody.insertRow(i);
                 row.addEventListener("click", function() {
                     specificChatroom(specificChannelsBasedOnUser[i].id);
                 });
 
                 var channelID = row.insertCell(0);
-                channelID.innerHTML = specificChannelsBasedOnUser[i].id;
+                channelID.innerHTML = channels[i].id;
                 var channelName = row.insertCell(1);
-                channelName.innerHTML = specificChannelsBasedOnUser[i].nameString;
+                channelName.innerHTML = channels[i].nameString;
                 var scope = row.insertCell(2);
-                var privateBool = specificChannelsBasedOnUser[i].privateBool;
+                var privateBool = channels[i].privateBool;
                 if (privateBool) {
                     scope.innerHTML = "private";
                 } else {
@@ -73,40 +69,38 @@ window.onload = function (e) {
     res();
 }
 
-document.getElementById("general").addEventListener("click", function() {
-    console.log("i'm here");
-    specificChatroom(-1);
-});
-document.getElementById("create-channel").addEventListener("click", function() {
-    chatroom();
-});
 
-function chatroom() {
-    let sendData2 = {
-        "nameString": document.getElementById("name"),
-        "descriptionString": document.getElementById("description"),
-        "privateBool": document.getElementById("public-privacy"),
-    };
 
-    const res = () => {
-        fetch("https://api.nehay.me/v1/channels", {
-            method: "POST",
-            body: JSON.stringify(sendData2),
-            headers: new Headers({
-                "Content-Type": "application/json",
-                "Authorization": sessionStorage.getItem('bearer')
-            })
-        }).then((channel) => {
-            if (channel.status == 403 || channel.status == 500) {
-                console.log("Error when adding channel. try again.")
-                console.log(channel);
-            }
-            sessionStorage.setItem('currChannel', channel.body.id);
-        })
+const chatroom = () => {
+    var button = "";
+    if (document.getElementById("public").checked){
+        button = false;
+    } else {
+        button = true;
     }
-    res();
-    window.location.href="chatroom.html";
+    let sendData2 = {
+        "nameString": document.getElementById("name").value,
+        "descriptionString": document.getElementById("description").value,
+        "privateBool": button,
+    };
+    console.log(sendData2);
+    fetch("https://api.nehay.me/v1/channels", {
+        method: "POST",
+        body: JSON.stringify(sendData2),
+        headers: new Headers({
+            "Content-Type": "application/json",
+            "Authorization": sessionStorage.getItem('bearer')
+        })
+    }).then((channel) => {
+        if (channel.status == 403 || channel.status == 500) {
+            console.log("Error when adding channel. try again.")
+            console.log(channel);
+        }
+        console.log(channel);
+        sessionStorage.setItem('currChannel', channel.body.id);
+    })
 }
+    
 
 function specificChatroom(id) {
     const res = () => {
@@ -121,13 +115,21 @@ function specificChatroom(id) {
                 console.log("Error when adding channel. try again.")
                 console.log(channel);
             }
-            sessionStorage.setItem('currChannel', channel.body.id);
+            console.log(channel);
+            sessionStorage.setItem('currChannel', channel.body);
         })
-        if (specificChannel.status == 500) {
-            console.log(specificChannel);
-        }
-        sessionStorage.setItem('currChannel', specificChannel);
     }
     res();
     window.location.href="chatroom.html";
 }
+
+document.getElementById("general").addEventListener("click", function() {
+    console.log("i'm here");
+    specificChatroom(-1);
+});
+
+document.getElementById("create-channel").addEventListener("click", function() {
+    // chatroom();
+    window.location.reload();
+    // window.location.href="chatroom.html";
+});

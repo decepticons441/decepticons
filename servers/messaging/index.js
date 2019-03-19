@@ -85,7 +85,7 @@ app.post("/v1/channels", (req, res, next) => {
     user = JSON.parse(user)
     // console.log("Req body" + req.body.nameString + " " + req.body.descriptionString + " " + req.body.privateBool + " " + user.id)
     let newChannel = new channel(req.body.nameString, req.body.descriptionString, req.body.privateBool, user.id)
-   
+    console.log(newChannel);
     pool.query('insert into channels (nameString, descriptionString, privateBool, createdAt, creatorID, editedAt) values (?, ?, ?, ?, ?, ?)', 
     [newChannel.nameString, newChannel.descriptionString, newChannel.privateBool, newChannel.createdAt, newChannel.creatorID, newChannel.editedAt], 
     function (error, results, fields) {
