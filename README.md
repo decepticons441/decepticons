@@ -112,6 +112,13 @@ Detailed Flow Diagram <br>
 	* 404: Chatroom with specific ID does not exist
 	* 500: Internal Server Error
 
+### GET /v1/channels/:id/info
+* Will respond by grabbing a specific chatroom 
+* Content-Type header should all be set to application/json
+	* 200: Successfully retrieved the chatrooms
+	* 401: No valid user in the X-User header
+	* 500: Internal Server Error
+
 ### PATCH /v1/channels/:id
 * Updates the specific chatroom’s name and description
 * Content-Type header should all be set to application/json
