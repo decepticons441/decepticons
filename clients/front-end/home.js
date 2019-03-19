@@ -1,12 +1,5 @@
 // 'use strict';
 
-// let login = document.querySelector("#login-button");
-// let signup = document.querySelector("#signup-button")
-
-// login.addEventListener("click", window.location.href="home.html");
-// signup.addEventListener("click", window.location.href="signup.html");
-
-
 // https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal
 var modal = document.getElementById('pop-up');
 var btn = document.getElementById("create-chat");
@@ -39,6 +32,12 @@ window.onload = function () {
             headers: new Headers({
                 "Authorization": sessionStorage.getItem('bearer')
             })
+        // }).then((response) => {
+        //     if (response.status == 401 || response.status == 500) {
+        //         console.log("Error when getting channels specific to user. try again.")
+        //         console.log(response);
+        //     }
+        //     return response.json();
         }).then((channels) => {
             if (channels.status == 401 || channels.status == 500) {
                 console.log("Error when getting channels specific to user. try again.")
@@ -49,7 +48,7 @@ window.onload = function () {
             for (i = 1; i < channels.body; i++) {
                 var row = tableBody.insertRow(i);
                 row.addEventListener("click", function() {
-                    specificChatroom(specificChannelsBasedOnUser[i].id);
+                    specificChatroom(channels[i].id);
                 });
 
                 var channelID = row.insertCell(0);
@@ -68,7 +67,6 @@ window.onload = function () {
     }
     res();
 }
-
 
 
 const chatroom = () => {
@@ -91,13 +89,18 @@ const chatroom = () => {
             "Content-Type": "application/json",
             "Authorization": sessionStorage.getItem('bearer')
         })
-    }).then((channel) => {
-        if (channel.status == 403 || channel.status == 500) {
+    }).then(response => {
+        if (response.status == 403 || response.status == 500) {
             console.log("Error when adding channel. try again.")
-            console.log(channel);
+            console.log(response);
+            // throw new error with catch
         }
+        return response.json();
+    }).then((channel) => {
         console.log(channel);
-        sessionStorage.setItem('currChannel', channel.body.id);
+        sessionStorage.setItem('currChannel', JSON.stringify(channel));
+        window.location.reload();
+        window.location.href="chatroom.html";
     })
 }
     
@@ -110,26 +113,27 @@ function specificChatroom(id) {
                 "Content-Type": "application/json",
                 "Authorization": sessionStorage.getItem('bearer')
             })
-        }).then((channel) => {
-            if (channel.status == 403 || channel.status == 500) {
+        }).then((response) => {
+            if (response.status == 403 || response.status == 500) {
                 console.log("Error when adding channel. try again.")
-                console.log(channel);
+                console.log(response);
             }
+            return response.json();
+        }).then((channel) => {
             console.log(channel);
-            sessionStorage.setItem('currChannel', channel.body);
+            sessionStorage.setItem('currChannel', JSON.stringify(channel));
+            window.onload.call();
+            window.location.href="chatroom.html";
         })
     }
     res();
-    window.location.href="chatroom.html";
 }
 
 document.getElementById("general").addEventListener("click", function() {
-    console.log("i'm here");
-    specificChatroom(-1);
+    // console.log("i'm here");
+    specificChatroom(1);
 });
 
 document.getElementById("create-channel").addEventListener("click", function() {
-    // chatroom();
-    window.location.reload();
-    // window.location.href="chatroom.html";
+    chatroom();
 });

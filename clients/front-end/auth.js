@@ -9,44 +9,39 @@ const response = () => {
         "password": document.querySelector("#password").value,
     };
 
+    console.log(sendData);
+
     fetch("https://api.nehay.me/v1/sessions", {
         method: "POST",
         body: JSON.stringify(sendData),
         headers: new Headers({
             "Content-Type": "application/json",
-            "Authorization": sessionStorage.getItem('bearer')       // won't work
         })
+    // }).then((response) => { 
+    //     if (response.status == 400 || response.status == 401 || response.status == 415 || response.status == 500) {
+    //         console.log("Error when getting specific user. try again.")
+    //         console.log(response);
+    //     }
+    //     // console.log(response);
+    //     return response.json();
     }).then(userCheck => {
         if (userCheck.status == 400 || userCheck.status == 401 || userCheck.status == 415 || userCheck.status == 500) {
             console.log("Error when getting specific user. try again.")
             console.log(userCheck);
         }
-        console.log(userCheck);
 
-        fetch("https://api.nehay.me/v1/users/" + userCheck.body.id, {
-            method: "GET",
-            headers: new Headers({
-                "Content-Type": "application/json",
-                "Authorization": sessionStorage.getItem('bearer')       // won't work
-            })
-        }).then(specificUser => {
-            if (specificUser.status == 400 || specificUser.status == 401 || specificUser.status == 500) {
-                console.log("Error when getting specific user. try again.")
-                console.log(specificUser);
-            }
-            var tokenArr = new Array();
-            tokenArr = response.headers["Authorization"].split(" ");
-            sessionStorage.setItem('bearer', tokenArr[1]);
-            console.log(specificUser.body);
-            sessionStorage.setItem('user', specificUser.body);
-        })
+        var tokenArr = new Array();
+        tokenArr = userCheck.headers.get("Authorization").split(" ");
+        sessionStorage.setItem('bearer', tokenArr[1]);
+        console.log(userCheck.body);
+        sessionStorage.setItem('user', JSON.stringify(userCheck));
     })
 }
 
 document.getElementById("login").addEventListener("click", (e) => { 
     e.preventDefault(); 
     response();
-    // window.location.href="home.html"; 
+    window.location.href="home.html"; 
 })
 
 document.getElementById("signup").addEventListener("click", (e) => { 

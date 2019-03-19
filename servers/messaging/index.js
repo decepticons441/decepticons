@@ -151,6 +151,10 @@ app.post("/v1/channels", (req, res, next) => {
 });
 
 app.get("/v1/channels/:chanid", (req, res, next) => {
+    
+}
+
+app.get("/v1/channels/:chanid", (req, res, next) => {
     let user = req.get("X-User")
     if (!user) {
         res.status(401).send({error: 'ChannelsHandler: User unauthorized'});

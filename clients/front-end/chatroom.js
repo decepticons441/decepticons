@@ -10,6 +10,32 @@ var addModal = document.getElementById('add-pop-up');
 var addBtn = document.getElementById("add-search-members");
 var closeSpan = document.getElementsByClassName("close-add")[0];
 
+document.getElementById("add-icon").addEventListener("click", function() {
+    console.log("i'm here");
+    var message = document.getElementById('write-message').value;
+    addMessage(message);
+});
+
+function addMessage(message) {
+    fetch("https://api.nehay.me/v1/channels/" + JSON.parse(sessionStorage.getItem('currChannel')).id, {
+        method: "POST",
+        body: JSON.stringify({
+            "body": message,
+        }),
+        headers: new Headers({
+            "Content-Type": "application/json",
+            "Authorization": sessionStorage.getItem('bearer')
+        })
+    }).then((messages) => {
+        if (messages.status == 403 || messages.status == 404 || messages.status == 500) {
+            console.log("Error when updating message. try again.")
+            console.log(messages);
+        }
+        console.log(messages);
+        window.onload.call();
+    })
+}
+
 addBtn.addEventListener("click", addModalPop);
 closeSpan.addEventListener("click", closeModalAdd);
 
@@ -21,9 +47,10 @@ function closeModalAdd() {
     addModal.style.display = "none";
 }
 window.onload = function(event) {
-    document.getElementById("channel-name").innerHTML = sessionStorage.getItem('currChannel').nameString;
+    document.getElementById("channel-name").innerHTML = JSON.parse(sessionStorage.getItem('currChannel')).nameString;
+    // document.getElementById("message-chat").innerHTML = "";
     const res = () => {
-        fetch("https://api.nehay.me/v1/channels/" + sessionStorage.getItem('currChannel'), {
+        fetch("https://api.nehay.me/v1/channels/" + JSON.parse(sessionStorage.getItem('currChannel')).id, {
             method: "GET",
             headers: new Headers({
                 "Authorization": sessionStorage.getItem('bearer'),
@@ -33,30 +60,22 @@ window.onload = function(event) {
                 console.log("Error when getting channels. try again.");
                 console.log(messages);
             }
+            return messages.json();
+        }).then((messages) => {
             console.log(messages);
-            for (i = 1; i < messages.body; i++) {
+            for (i = 0; i < messages.length; i++) {
                 var messageDiv = document.createElement("div");
             
                 var intro = document.createElement("div");
                 var introInfo = document.createElement("p");
 
-                fetch("https://api.nehay.me/v1/users/" + messages.body[i].creatorID, {
-                    method: "GET",
-                    headers: new Headers({
-                        "Content-Type": "application/json",
-                        "Authorization": sessionStorage.getItem('bearer')
-                    })
-                }).then((user) => {
-                    if (user.status == 401 || user.status == 500) {
-                        console.log("Error when getting a user. try again.")
-                        console.log(user);
-                    }
-                    introInfo.innerHTML = user.body.userName + messages.body[i].createdAt;
+                introInfo.innerHTML = "CreatorID #" + messages[i].creatorID + " " + messages[i].createdAt;
+                if (messages[i].creatorID == JSON.parse(sessionStorage.getItem('user')).id) {
                     var editButton = document.createElement("button");
                     editButton.className = "btn btn-primary";
                     editButton.setAttribute('id', 'editButton');
                     editButton.addEventListener("click", function() {
-                        editMessage(messages.body[i].id, message.innerHTML);
+                        editMessage(messages.body[i].id, messages.body[i].body);
                     });
 
                     var deleteButton = document.createElement("button");
@@ -67,14 +86,18 @@ window.onload = function(event) {
                     });
                     intro.append(introInfo);
                     intro.append(editButton);
-                    intro.append(deleteButton);
+                    intro.append(deleteButton);  
+                } else {
+                    intro.append(introInfo);
+                }
 
-                    messageDiv.append(intro);
-                    var message = document.createElement("input");
-                    message.setAttribute('id', 'message');
-                    message.innerHTML = messages.body[i].body;
-                    messageDiv.append(message);
-                })               
+                messageDiv.append(intro);
+                var message = document.createElement("p");
+                message.setAttribute('id', 'message');
+                // console.log(messages[i].body);
+                message.innerHTML = messages[i].body;
+                messageDiv.append(message); 
+                document.getElementById("message-chat").append(messageDiv);   
             }
         })
     }
@@ -98,9 +121,6 @@ function editMessage(messageID, message) {
         }
         console.log(messages);
     })
-    // if (specificChannel.status == 500) {
-    //     console.log(specificChannel);
-    // }
 }
 
 function deleteMessage(messageID) {
@@ -116,10 +136,7 @@ function deleteMessage(messageID) {
         }
         console.log(messages);
     })
-    // if (specificChannel.status == 500) {
-    //     console.log(specificChannel);
-    // }
-    window.onload.call();
+    window.onload.reload();
 }
 
 // When the user clicks anywhere outside of the modal, close it
@@ -177,7 +194,7 @@ function search() {
 
 function addMember(memberID) {
     const res = () => {
-        fetch("https://api.nehay.me/v1/channels/" + sessionStorage.getItem('currChannel') + "/members", {
+        fetch("https://api.nehay.me/v1/channels/" + JSON.parse(sessionStorage.getItem('currChannel')).id + "/members", {
             method: "POST",
             body: {
                 "id": memberID
@@ -216,7 +233,7 @@ function addMember(memberID) {
 
 function removeMember(memberID) {
     const res = () => {
-        fetch("https://api.nehay.me/v1/channels/" + sessionStorage.getItem('currChannel') + "/members", {
+        fetch("https://api.nehay.me/v1/channels/" + JSON.parse(sessionStorage.getItem('currChannel')).id + "/members", {
             method: "DELETE",
             body: {
                 "id": memberID
@@ -262,14 +279,13 @@ window.onclick = function(event) {
 var updateChannel = document.getElementById("members-done");
 
 updateChannel.addEventListener("click", chatroom);
-
 function chatroom() {
     const res = () => {
-        fetch("https://api.nehay.me/v1/channels/" + sessionStorage.getItem('currChannel') , {
+        fetch("https://api.nehay.me/v1/channels/" + JSON.parse(sessionStorage.getItem('currChannel')).id , {
             method: "PATCH",
             body: {
-                "nameString": document.getElementById("name"),
-                "descriptionString": document.getElementById("description")
+                "nameString": document.getElementById("name").value,
+                "descriptionString": document.getElementById("description").value
             },
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -286,7 +302,6 @@ function chatroom() {
     res();
     window.location.href="chatroom.html";
 }
-
 
 
 // https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal
@@ -318,7 +333,7 @@ deleteChannelYES.addEventListener("click", deleteRerouteYES);
 
 function deleteRerouteYES() {
     const res = () => {
-        fetch("https://api.nehay.me/v1/channels/" + sessionStorage.getItem('currChannel') + "/members", {
+        fetch("https://api.nehay.me/v1/channels/" + JSON.parse(sessionStorage.getItem('currChannel')).id + "/members", {
             method: "DELETE",
             headers: new Headers({
                 "Authorization": sessionStorage.getItem('bearer')
