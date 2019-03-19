@@ -19,8 +19,8 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
-	"github.com/nehay100/assignments-nehay100/servers/gateway/models/users"
-	"github.com/nehay100/assignments-nehay100/servers/gateway/sessions"
+	"github.com/nehay100/decepticons/servers/gateway/models/users"
+	"github.com/nehay100/decepticons/servers/gateway/sessions"
 )
 
 const AuthorizationHeader = "Authorization"
@@ -89,6 +89,7 @@ const paramAuthorization = "auth"
 // }
 
 func (sh *SessionHandler) UsersHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("Request Made")
 	switch r.Method {
 	case http.MethodPost:
 		if !strings.HasPrefix(r.Header.Get(ContentTypeHeader), ContentTypeApplicationJSON) {
@@ -157,7 +158,7 @@ func (sh *SessionHandler) UsersHandler(w http.ResponseWriter, r *http.Request) {
 				http.StatusUnauthorized)
 			return
 		}
-		
+
 		query := r.FormValue("q")
 		log.Println("Query: ", query)
 		query = strings.ToLower(query)

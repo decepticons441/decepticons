@@ -23,10 +23,10 @@ import (
 	"github.com/go-redis/redis"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
-	"github.com/nehay100/assignments-nehay100/servers/gateway/handlers"
-	"github.com/nehay100/assignments-nehay100/servers/gateway/indexes"
-	"github.com/nehay100/assignments-nehay100/servers/gateway/models/users"
-	"github.com/nehay100/assignments-nehay100/servers/gateway/sessions"
+	"github.com/nehay100/decepticons/servers/gateway/handlers"
+	"github.com/nehay100/decepticons/servers/gateway/indexes"
+	"github.com/nehay100/decepticons/servers/gateway/models/users"
+	"github.com/nehay100/decepticons/servers/gateway/sessions"
 )
 
 // func IndexHandler(w http.ResponseWriter, r *http.Request) {
@@ -197,11 +197,11 @@ func main() {
 	rabbit := os.Getenv("RABBIT")
 	conn, err := amqp.Dial("amqp://rabbit:5672/")
 	failOnError(err, "Failed to connect to RabbitMQ")
-	defer conn.Close()
+	// defer conn.Close()
 
 	ch, err := conn.Channel()
 	failOnError(err, "Failed to open a channel")
-	defer ch.Close()
+	// defer ch.Close()
 
 	q, err := ch.QueueDeclare(
 		rabbit, // name

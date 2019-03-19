@@ -3,7 +3,7 @@ package users
 import (
 	"fmt"
 	"time"
-	"github.com/nehay100/assignments-nehay100/servers/gateway/indexes"
+	"github.com/nehay100/decepticons/servers/gateway/indexes"
 )
 
 type FakeMockStore struct {

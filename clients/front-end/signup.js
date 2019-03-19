@@ -1,40 +1,43 @@
 'use strict';
 
-let createAccount = document.querySelector("#create-account");
-let login = document.querySelector("#login")
-
-createAccount.addEventListener("click", home);
-login.addEventListener("click", auth);
-
-let sendData = {
-    "email": document.querySelector("#email"),
-    "password": document.querySelector("#password"),
-    "passwordConf": document.querySelector("#passwordConf"),
-    "userName": document.querySelector("#userName"),
-    "firstName": document.querySelector("#firstName"),
-    "lastName": document.querySelector("#lastName"),
-};
-
-function home() {
-    const res = async () => {
-        const response = await fetch("https://api.nehay.me/v1/users", {
-            method: "POST",
-            body: JSON.stringify(sendData),
-            headers: new Headers({
-                "Content-Type": "application/json"
-            })
-        });
-        if (response.status == 400) {
+const home = () => {
+    var sendData = {
+        "email": document.getElementById("email").value,
+        "password": document.getElementById("password").value,
+        "passwordConf": document.getElementById("passwordConf").value,
+        "userName": document.getElementById("userName").value,
+        "firstName": document.getElementById("firstName").value,
+        "lastName": document.getElementById("lastName").value,
+    };
+    console.log(sendData);
+    fetch("https://api.nehay.me/v1/users", {
+        method: "POST",
+        headers: new Headers({
+            "Content-Type": "application/json"
+        }),
+        body: JSON.stringify(sendData),
+    })
+    .then((response) => {
+        if (response.status == 400 || response.status == 415 || response.status == 500) {
             console.log("Error when making new user. try again.")
+            console.log(response)
         }
-        console.log(response)
+        console.log(response);
         var tokenArr = new Array();
-        tokenArr = response.headers["Authorization"].split(" ");
+        tokenArr = response.headers.get("Authorization").split(" ");
         sessionStorage.setItem('bearer', tokenArr[1]);
+        sessionStorage.setItem('user', response.body);
         window.location.href="home.html";
-    }
+    })
 }
 
-function auth() {
-    window.location.href="auth.html"
-}
+document.getElementById("create-account").addEventListener("click", (e) => { 
+    console.log("hello")
+    e.preventDefault(); 
+    home(); 
+})
+
+document.getElementById("login").addEventListener("click", (e) => { 
+    e.preventDefault(); 
+    window.location.href="auth.html";
+})

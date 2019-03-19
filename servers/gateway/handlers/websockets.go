@@ -8,7 +8,7 @@ import (
 	"sync"
 
 	"github.com/gorilla/websocket"
-	"github.com/nehay100/assignments-nehay100/servers/gateway/sessions"
+	"github.com/nehay100/decepticons/servers/gateway/sessions"
 	"github.com/streadway/amqp"
 )
 

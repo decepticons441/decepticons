@@ -1,58 +1,52 @@
 'use strict';
 
-let login = document.querySelector("#login");
-let signup = document.querySelector("#signup")
-
-// login.addEventListener("click", window.location.href="home.html");
-// signup.addEventListener("click", window.location.href="signup.html");
-
-login.addEventListener("click", home);
-signup.addEventListener("click", signUp);
-let sendData = {
-    "email": document.querySelector("#email"),
-    "password": document.querySelector("#password"),
-};
-
-function home() {
-    const res = async () => {
-        // const res = await fetch("abc")
-        // const js = await res.json()
-        // console.log(js)
-        const userCheck = await fetch("https://api.nehay.me/v1/sessions", {
-            method: "POST",
-            body: JSON.stringify(sendData),
-            headers: new Headers({
-                "Content-Type": "application/json",
-                "Authorization": sessionStorage.getItem('bearer')       // won't work
-            })
-        });
-        if (userCheck.status == 404) {
-            console.log("You are not a user within our system/you are not authorized to use this system. Please make a new account or try again.")
+const response = () => {
+    let sendData = {
+        "email": document.querySelector("#email").value,
+        "password": document.querySelector("#password").value,
+    };
+    console.log(sendData);
+    fetch("https://api.nehay.me/v1/sessions", {
+        method: "POST",
+        body: JSON.stringify(sendData),
+        headers: new Headers({
+            "Content-Type": "application/json",
+            "Authorization": sessionStorage.getItem('bearer')       // won't work
+        })
+    }).then(userCheck => {
+        if (userCheck.status == 400 || userCheck.status == 401 || userCheck.status == 415 || userCheck.status == 500) {
+            console.log("Error when getting specific user. try again.")
+            console.log(userCheck);
         }
         console.log(userCheck);
 
-        const specificUser = await fetch("https://api.nehay.me/v1/users/" + userCheck.body.id, {
+        fetch("https://api.nehay.me/v1/users/" + userCheck.body.id, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",
                 "Authorization": sessionStorage.getItem('bearer')       // won't work
             })
-        });
-       
-        if (specificUser.status == 404) {
-            console.log("You are not a user within our system/you are not authorized to use this system. Please make a new account or try again.")
-        }
-        console.log(specificUser);
-
-        var tokenArr = new Array();
-        tokenArr = response.headers["Authorization"].split(" ");
-        sessionStorage.setItem('bearer', tokenArr[1]);
-        sessionStorage.setItem('user', specificUser.body);
-    }
-    
-    window.location.href="home.html";
+        }).then(specificUser => {
+            if (specificUser.status == 400 || specificUser.status == 401 || specificUser.status == 500) {
+                console.log("Error when getting specific user. try again.")
+                console.log(specificUser);
+            }
+            var tokenArr = new Array();
+            tokenArr = response.headers["Authorization"].split(" ");
+            sessionStorage.setItem('bearer', tokenArr[1]);
+            console.log(specificUser.body);
+            sessionStorage.setItem('user', specificUser.body);
+        })
+    })
 }
 
-function signUp() {
+document.getElementById("login").addEventListener("click", (e) => { 
+    e.preventDefault(); 
+    response();
+    // window.location.href="home.html"; 
+})
+
+document.getElementById("signup").addEventListener("click", (e) => { 
+    e.preventDefault(); 
     window.location.href="signup.html";
-}
+})
