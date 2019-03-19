@@ -407,3 +407,36 @@ function logError(err) {
     console.warn(err.toString(), err);
   }
 }
+
+// fetch("http://webrtc.nelsontan.me", {
+//         method: "POST",
+//         // mode: 'no-cors',
+//         headers: new Headers({
+//             "Content-Type": "application/json"
+//         }),
+//         body: JSON.stringify(sendData),
+//         // headers: new Headers({
+//         //     "Content-Type": "application/json"
+//         // })
+//     })
+//     .then((response) => {
+//         console.log(response)
+//     })
+
+// make handler
+
+// get request to server 
+
+// return stream 
+
+const URL = "webrtc.nelsontan.me";
+const Data = {
+
+}
+
+const otherParams = {
+  headers: {
+
+  },
+  method: "GET"
+};

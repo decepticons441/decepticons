@@ -1,14 +1,18 @@
 'use strict';
 
+console.log("start");
 var os = require('os');
 var nodeStatic = require('node-static');
 var http = require('http');
 var socketIO = require('socket.io');
+var fs = require('fs');
 
 var fileServer = new(nodeStatic.Server)();
 var app = http.createServer(function(req, res) {
   fileServer.serve(req, res);
 }).listen(80);
+
+
 
 var io = socketIO.listen(app);
 io.sockets.on('connection', function(socket) {
