@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- <link rel="icon" type="image/png" href="img/favicon.png"> -->
     <link rel="stylesheet" href="chatroom.css">
     <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+        crossorigin="anonymous">
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Decepticons - Welcome to this Chatroom</title>
 </head>
+
 <body>
     <div id="container">
         <h1 id="channel-name">Chatroom #1 /////////// Name</h1>
@@ -21,12 +25,26 @@
 
         <div id="content">
             <div id="videos">
+                <h1>WebRTC Video Conference Tutorial - Plain WebRTC</h1>
 
+                <div id="selectRoom">
+                    <label>Type the room number</label>
+                    <input id="roomNumber" type="text" />
+                    <button id="goRoom">Go</button>
+                </div>
+
+                <div id="consultingRoom" style="display:none">
+                    <video id="localVideo" autoplay></video>
+                    <video id="remoteVideo" autoplay></video>
+                </div>
+
+                <script src="/socket.io/socket.io.js"></script>
+                <script src="client.js"></script>
             </div>
 
             <div id="message-chat">
                 <textarea id="write-message" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    <i id="add-icon" class="fas fa-plus"></i>
+                <i id="add-icon" class="fas fa-plus"></i>
             </div>
         </div>
 
@@ -44,13 +62,15 @@
             <!-- Modal content -->
             <div class="add">
                 <span class="close-add">&times;</span>
-                
+
                 <div id="search-users">
                     <p>Search for Users</p>
                     <div id="searchBox">
                         <form class="d-flex">
                             <input id="search" type="text" />
-                            <button id="buttonSearch" className="searchIcon"><i class="fas fa-search"></i></button>
+                            <button id="buttonSearch" className="searchIcon">
+                                <i class="fas fa-search"></i>
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -71,7 +91,7 @@
                         </table>
                     </div>
                 </div>
-            
+
                 <div id="current-members">
                     <p>Current Members</p>
                     <div id="current-members">
@@ -89,7 +109,7 @@
                         </table>
                     </div>
                 </div>
-                
+
                 <button type="submit" class="btn btn-primary" id="add-members-done">Done</button>
             </div>
         </div>
@@ -102,7 +122,7 @@
             <!-- Updating the Chat - Modal content -->
             <div class="update-chatroom">
                 <span class="close-update">&times;</span>
-                
+
                 <div>
                     <p>Name</p>
                     <input type="text" id="name" class="form-control">
