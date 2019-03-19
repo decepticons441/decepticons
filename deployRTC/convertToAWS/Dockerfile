@@ -2,13 +2,14 @@ FROM node:10-alpine
 
 WORKDIR /deployRTC/convertToAWS
 
-COPY package.json /deployRTC/convertToAWS
-
-RUN npm install
+COPY ./package.json /deployRTC/convertToAWS
 
 COPY . /deployRTC/convertToAWS
 
+RUN npm install
+
 EXPOSE 80
 
-CMD node index.js
+ENTRYPOINT ["node", "index.js"]
+
 

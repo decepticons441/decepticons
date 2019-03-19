@@ -340,3 +340,4 @@ deleteChannelNO.addEventListener("click", deleteRerouteNO);
 function deleteRerouteNO() {
     window.location.href="chatroom.html";
 }
+
