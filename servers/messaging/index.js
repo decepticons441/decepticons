@@ -150,9 +150,35 @@ app.post("/v1/channels", (req, res, next) => {
     });
 });
 
-app.get("/v1/channels/:chanid", (req, res, next) => {
-    
-}
+app.get("/v1/channels/:chanid/info", (req, res, next) => {
+    let user = req.get("X-User")
+    if (!user) {
+        res.status(401).send({error: 'ChannelsHandler: User unauthorized'});
+        return
+    }
+    user = JSON.parse(user)
+
+    let channelID = req.params.chanid;
+    pool.query('select * from channels where id = ?', channelID, function (error, results, fields) {
+        if (error) { 
+            res.status(500).send("Can't Get Channel by ID")
+            return
+        }
+        if (results.length == 0) {
+            res.status(200).json(results);
+            return
+        }
+        res.setHeader("Content-Type", "application/json");
+        try {
+            res.status(200).json(results);
+            res.end();
+            return results;
+        } catch(err) {
+            res.status(500).send("Error encoding");
+            next(err);
+        }
+    });
+});
 
 app.get("/v1/channels/:chanid", (req, res, next) => {
     let user = req.get("X-User")

@@ -26,7 +26,8 @@ const home = () => {
         var tokenArr = new Array();
         tokenArr = response.headers.get("Authorization").split(" ");
         sessionStorage.setItem('bearer', tokenArr[1]);
-        sessionStorage.setItem('user', response.body);
+        sessionStorage.setItem('user', JSON.stringify(response));
+        // sessionStorage.setItem('user', response.body);
         window.location.href="home.html";
     })
 }

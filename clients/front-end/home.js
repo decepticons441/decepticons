@@ -26,23 +26,20 @@ window.onclick = function(event) {
 }
 
 window.onload = function () {
+    // console.log(JSON.parse(sessionStorage.getItem('bearer')));
     const res = () => {
         fetch("https://api.nehay.me/v1/channels/members", {
             method: "GET",
             headers: new Headers({
                 "Authorization": sessionStorage.getItem('bearer')
             })
-        // }).then((response) => {
-        //     if (response.status == 401 || response.status == 500) {
-        //         console.log("Error when getting channels specific to user. try again.")
-        //         console.log(response);
-        //     }
-        //     return response.json();
-        }).then((channels) => {
-            if (channels.status == 401 || channels.status == 500) {
+        }).then((response) => {
+            if (response.status == 401 || response.status == 500) {
                 console.log("Error when getting channels specific to user. try again.")
-                console.log(channels);
+                console.log(response);
             }
+            return response.json();
+        }).then((channels) => {
             console.log(channels);
             var tableBody = document.querySelector("#table");
             for (i = 1; i < channels.body; i++) {
@@ -63,6 +60,7 @@ window.onload = function () {
                     scope.innerHTML = "public";
                 }
             }
+            console.log(JSON.parse(sessionStorage.getItem('user')));
         })
     }
     res();
@@ -107,7 +105,7 @@ const chatroom = () => {
 
 function specificChatroom(id) {
     const res = () => {
-        fetch("https://api.nehay.me/v1/channels/" + id, {
+        fetch("https://api.nehay.me/v1/channels/" + id + "/info", {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",

@@ -31,10 +31,12 @@ const response = () => {
         }
 
         var tokenArr = new Array();
+        console.log(userCheck.headers.get("Authorization"));
         tokenArr = userCheck.headers.get("Authorization").split(" ");
+        console.log(tokenArr[1]);
         sessionStorage.setItem('bearer', tokenArr[1]);
-        console.log(userCheck.body);
-        sessionStorage.setItem('user', JSON.stringify(userCheck));
+        // console.log(userCheck.body);
+        sessionStorage.setItem('user', JSON.stringify(userCheck.json()));
     })
 }
 
