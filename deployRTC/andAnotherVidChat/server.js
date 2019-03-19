@@ -4,7 +4,7 @@ const app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 80;
 
 // express routing
 app.use(express.static('public'));
@@ -51,6 +51,6 @@ io.on('connection', function (socket) {
 });
 
 // listener
-http.listen(port || 8080, function () {
+http.listen(port || 80, function () {
     console.log('listening on', port);
 });
