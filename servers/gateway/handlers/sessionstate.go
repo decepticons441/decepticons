@@ -7,7 +7,7 @@ package handlers
 import (
 	"time"
 
-	"github.com/nehay100/assignments-nehay100/servers/gateway/models/users"
+	"github.com/nehay100/decepticons/servers/gateway/models/users"
 )
 
 // SessionState struct contains time at which session began and authenticated user

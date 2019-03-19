@@ -2,7 +2,7 @@ package users
 
 import (
 	"errors"
-	"github.com/nehay100/assignments-nehay100/servers/gateway/indexes"
+	"github.com/nehay100/decepticons/servers/gateway/indexes"
 )
 
 //ErrUserNotFound is returned when the user can't be found

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/nehay100/assignments-nehay100/servers/gateway/indexes"
+	"github.com/nehay100/decepticons/servers/gateway/indexes"
 )
 
 // MySQLStore represents a users.Store backed by MYSQL

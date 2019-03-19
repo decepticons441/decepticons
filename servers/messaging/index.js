@@ -85,7 +85,7 @@ app.post("/v1/channels", (req, res, next) => {
     user = JSON.parse(user)
     // console.log("Req body" + req.body.nameString + " " + req.body.descriptionString + " " + req.body.privateBool + " " + user.id)
     let newChannel = new channel(req.body.nameString, req.body.descriptionString, req.body.privateBool, user.id)
-   
+    console.log(newChannel);
     pool.query('insert into channels (nameString, descriptionString, privateBool, createdAt, creatorID, editedAt) values (?, ?, ?, ?, ?, ?)', 
     [newChannel.nameString, newChannel.descriptionString, newChannel.privateBool, newChannel.createdAt, newChannel.creatorID, newChannel.editedAt], 
     function (error, results, fields) {
@@ -147,6 +147,36 @@ app.post("/v1/channels", (req, res, next) => {
                     next(err);
                 }
         });
+    });
+});
+
+app.get("/v1/channels/:chanid/info", (req, res, next) => {
+    let user = req.get("X-User")
+    if (!user) {
+        res.status(401).send({error: 'ChannelsHandler: User unauthorized'});
+        return
+    }
+    user = JSON.parse(user)
+
+    let channelID = req.params.chanid;
+    pool.query('select * from channels where id = ?', channelID, function (error, results, fields) {
+        if (error) { 
+            res.status(500).send("Can't Get Channel by ID")
+            return
+        }
+        if (results.length == 0) {
+            res.status(200).json(results);
+            return
+        }
+        res.setHeader("Content-Type", "application/json");
+        try {
+            res.status(200).json(results);
+            res.end();
+            return results;
+        } catch(err) {
+            res.status(500).send("Error encoding");
+            next(err);
+        }
     });
 });
 
@@ -616,6 +646,39 @@ app.delete("/v1/channels/:chanid", (req, res, next) => {
         res.status(500).send("You are not authorized to delete the general channel")
         return 
     }
+});
+
+app.get("/v1/channels/members", (req, res, next) => {
+    let user = req.get("X-User")
+    if (!user) {
+        res.status(401).send({error: 'ChannelsHandler: User unauthorized'});
+        return
+    }
+    user = JSON.parse(user)
+
+    // let channelID = req.params.chanid;
+    pool.query('select * from channels_members where userID = ?', req.body.id, function (error, results, fields) {
+        if (error) { 
+            res.status(500).send("Can't Get Channel's Members by User ID")
+            return
+        }
+        if (results.length == 0) {
+            res.status(200).send("User isn't included in any channels beside General")
+            return
+        }
+        pool.query('select * from channels where id = ?', results.channelID, function (error, results, fields) {
+            if (error) { 
+                res.status(500).send("Can't Get Channel by ID")
+                return
+            }
+            if (results.length == 0) {
+                res.status(500).send("No channels exist for the one we are looking for")
+                return
+            }
+            res.status(200).send(results);
+            return results;
+        });
+    });
 });
 
 app.post("/v1/channels/:chanid/members", (req, res, next) => {

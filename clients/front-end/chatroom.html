@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- <link rel="icon" type="image/png" href="img/favicon.png"> -->
+    <link rel="stylesheet" href="chatroom.css">
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+        crossorigin="anonymous">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Decepticons - Welcome to this Chatroom</title>
+</head>
+
+<body>
+    <div id="container">
+        <h1 id="channel-name">Chatroom #1 /////////// Name</h1>
+        <div id="home-icon">
+            Home
+        </div>
+
+        <div id="content">
+            <div id="videos">
+                <h1>WebRTC Video Conference Tutorial - Plain WebRTC</h1>
+
+                <div id="selectRoom">
+                    <label>Type the room number</label>
+                    <input id="roomNumber" type="text" />
+                    <button id="goRoom">Go</button>
+                </div>
+
+                <div id="consultingRoom" style="display:none">
+                    <video id="localVideo" autoplay></video>
+                    <video id="remoteVideo" autoplay></video>
+                </div>
+
+                <script src="/socket.io/socket.io.js"></script>
+                <script src="client.js"></script>
+            </div>
+
+            <div id="message-chat">
+                <textarea id="write-message" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <i id="add-icon" class="fas fa-plus"></i>
+            </div>
+        </div>
+
+        <div id="button-boxes">
+            <button type="submit" class="btn btn-primary" id="add-search-members">Add Members</button>
+            <button type="submit" class="btn btn-primary" id="update-chat">Update Chatroom Information</button>
+            <button type="submit" class="btn btn-primary" id="delete-chat">Delete Chatroom</button>
+        </div>
+
+
+        <!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal -->
+        <!-- Add Members - The Modal -->
+        <div id="add-pop-up" class="modal">
+
+            <!-- Modal content -->
+            <div class="add">
+                <span class="close-add">&times;</span>
+
+                <div id="search-users">
+                    <p>Search for Users</p>
+                    <div id="searchBox">
+                        <form class="d-flex">
+                            <input id="search" type="text" />
+                            <button id="buttonSearch" className="searchIcon">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div id="results-searching-users">
+                    <p>Results</p>
+                    <div id="results-users">
+                        <table class="table table-hover table-bordered">
+                            <tbody>
+                                <!-- <tr>
+                                    <td>User #1</td>
+                                    <td id="row2-add"><i id="add-users-icon" class="fas fa-plus"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>User #2</td>
+                                    <td id="row2-add"><i id="add-users-icon" class="fas fa-plus"></i></td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="current-members">
+                    <p>Current Members</p>
+                    <div id="current-members">
+                        <table class="table table-hover table-bordered">
+                            <tbody>
+                                <!-- <tr>
+                                    <td>User #1</td>
+                                    <td id="row2-delete"><i id="minus-users-icon" class="fas fa-minus"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>User #2</td>
+                                    <td id="row2-delete"><i id="minus-users-icon" class="fas fa-minus"></i></td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="add-members-done">Done</button>
+            </div>
+        </div>
+
+
+        <!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal -->
+        <!-- The Modal -->
+        <div id="close-pop-up" class="modal">
+
+            <!-- Updating the Chat - Modal content -->
+            <div class="update-chatroom">
+                <span class="close-update">&times;</span>
+
+                <div>
+                    <p>Name</p>
+                    <input type="text" id="name" class="form-control">
+                </div>
+                <div>
+                    <p>Description</p>
+                    <textarea class="form-control" id="description" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" id="members-done">Done</button>
+            </div>
+        </div>
+
+        <!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal -->
+        <!-- The Modal -->
+        <div id="delete-warning" class="modal">
+
+            <!-- Updating the Chat - Modal content -->
+            <div class="delete-check">
+                <div id="name">
+                    <p>Are you sure you want to delete this chatroom?</p>
+                    <button type="submit" class="btn btn-primary" id="members-yes-done">Yes</button>
+                    <button type="submit" class="btn btn-outline-primary" id="members-no-done">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="chatroom.js"></script>
+
+</html>

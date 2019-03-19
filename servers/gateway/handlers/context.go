@@ -8,9 +8,9 @@ package handlers
 //and the user store
 
 import (
-	"github.com/nehay100/assignments-nehay100/servers/gateway/indexes"
-	"github.com/nehay100/assignments-nehay100/servers/gateway/models/users"
-	"github.com/nehay100/assignments-nehay100/servers/gateway/sessions"
+	"github.com/nehay100/decepticons/servers/gateway/indexes"
+	"github.com/nehay100/decepticons/servers/gateway/models/users"
+	"github.com/nehay100/decepticons/servers/gateway/sessions"
 )
 
 // MyHandler is a struct that has the signing key, getting/saving session state

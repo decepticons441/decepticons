@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <link rel="icon" type="image/png" href="img/favicon.png"> -->
+    <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.0/normalize.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign-Up</title>
+</head>
+
+<body>
+    <div id="container">
+        <h1>Create an Account</h1>
+        <div id="user-inputs">
+            <div >
+                <p>First Name</p>
+                <input type="text" id="firstName" class="form-control">
+            </div>
+            <div >
+                <p>Last Name</p>
+                <input id="lastName" type="text" class="form-control">
+            </div>
+            <div >
+                <p>Username</p>
+                <input id="userName" type="text" class="form-control">
+            </div>
+            <div >
+                <p>Email</p>
+                <input id="email" type="text" class="form-control">
+            </div>
+            <div >
+                <p>Password</p>
+                <input id="password" type="text" class="form-control">
+            </div>
+            <div >
+                <p>Password Confirmation</p>
+                <input id="passwordConf" type="text" class="form-control">
+            </div>
+        </div>
+        <div id="button-boxes">
+            <button type="submit" class="btn btn-primary btn-lg" id="create-account">Create an Account</button>
+            <hr />
+            <p id="account-question">Already Have an Account?</p>
+            <button type="submit" class="btn btn-outline-secondary btn-lg" id="login">Login</button>
+        </div>
+    </div>
+</body>
+
+<script src="signup.js"></script>
+
+</html>
